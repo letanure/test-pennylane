@@ -23,7 +23,7 @@ On attend également du candidat qu'il identifie 2 cas d'utilisation avancés do
 
 ## Livrable
 
-- Le code source sur un repository Github (inviter @quentindemetz et @tdeo), à défaut dans un fichier zip
+- Le code source sur un repository Github privé (inviter @quentindemetz et @tdeo), à défaut dans un fichier zip
 - Une URL pour utiliser l'application (sur un serveur perso, Heroku ou autre)
 
 Il faudra impérativement :
@@ -65,7 +65,7 @@ Particularité :
 
 ## Contenu du repo
 
-Ce repo a été initialisé via [create-react-app](https://github.com/facebook/create-react-app).
+Ce repo a été initialisé via [create-react-app](https://github.com/facebook/create-react-app). Il servira de point de départ pour l'implémentation du prototype.
 
 Un certain nombre de paquets ont été ajoutés à ce repo (voir package.json), leur utilisation n'est pas obligatoire, mais un certain nombres peuvent être utiles sur certains sujets. Par exemple :
 - Pour tout ce qui touche aux tableaux : [react-table](https://react-table.tanstack.com/),
