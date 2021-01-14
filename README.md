@@ -45,7 +45,7 @@ L'application devra interagir avec 4 modèles:
 
 ## API
 
-L'api est utilisable à l'URL suivante : https://jean-test-api.herokuapp.com/. Pour l'utiliser, il faudra envoyer en header le jeton fourni dans le header `X-TOKEN` (si besoin pour le jeton, contacter thierry@pennylane.tech).
+L'api est utilisable à l'URL suivante : https://jean-test-api.herokuapp.com/. Pour l'utiliser, il faudra envoyer en header le jeton fourni dans le header `X-SESSION` (si besoin pour le jeton, contacter thierry@pennylane.tech).
 
 Une API écrite en Rails est mise à disposition pour le test, on pourra consulter son code ici : https://github.com/pennylane-hq/jean_test_api
 
