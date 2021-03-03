@@ -47,7 +47,10 @@ L'application devra interagir avec 4 modèles:
 
 L'api est utilisable à l'URL suivante : https://jean-test-api.herokuapp.com/. Pour l'utiliser, il faudra envoyer en header le jeton fourni dans le header `X-SESSION` (si besoin pour le jeton, contacter thierry@pennylane.tech).
 
-Une API écrite en Rails est mise à disposition pour le test, on pourra consulter son code ici : https://github.com/pennylane-hq/jean_test_api
+Une API écrite en Rails est mise à disposition pour le test. Des exemples de requêtes et de réponses aux différents endpoints sont disponible [ici](https://jean-test-api.herokuapp.com/apipie) (ces exemples étant auto-générés à partir des tests écrits pour l'API).
+
+
+Pour plus de détails, on pourra consulter son code ici : https://github.com/pennylane-hq/jean_test_api
 
 On trouvera dans le repository :
 - dans [customers_controller_spec.rb](https://github.com/pennylane-hq/jean_test_api/tree/main/spec/requests/customers_controller_spec.rb) des exemples pour la recherche de client,
@@ -67,9 +70,6 @@ Particularité :
 
 Ce repo a été initialisé via [create-react-app](https://github.com/facebook/create-react-app). Il servira de point de départ pour l'implémentation du prototype.
 
-Un certain nombre de paquets ont été ajoutés à ce repo (voir package.json), leur utilisation n'est pas obligatoire, mais un certain nombres peuvent être utiles sur certains sujets. Par exemple :
-- Pour tout ce qui touche aux tableaux : [react-table](https://react-table.tanstack.com/),
-- Pour les icones : [FontAwesome](https://fontawesome.com/how-to-use/on-the-web/using-with/react),
-- Pour les forms, [Formik](https://formik.org/docs/overview) et [yup](https://github.com/jquense/yup/).
+Un certain nombre de paquets sont présents dans le [package.json](./package.json), ils sont à disposition du candidat s'il le souhaite. Pour autant, leur utilisation est totalement facultative, il n'est pas attendu d'aller apprendre des nouvelles librairies pour le test.
 
-On essaiera le plus possible de travailler avec les paquets présents dans le repo (il n'est pas strictement interdit d'en rajouter pour un autre besoin).
+Pour autant, on évitera d'introduire des nouvelles dépendances - si cela s'avère nécessaire, on expliquera son choix.
