@@ -47,6 +47,7 @@ The API is available at this URL: https://jean-test-api.herokuapp.com/. To use i
 Point of attention :
 - invoice lines are accessed via their invoice. To update them, use the relevant invoice API methods, as described in the Invoice API documentation (e.g. https://jean-test-api.herokuapp.com/apipie/1.0/invoices/update.html)
 
+The API codebase is available [here](https://github.com/pennylane-hq/jean_test_api) if you want to have a look.
 
 ## Repository contents
 
