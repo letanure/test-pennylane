@@ -12,7 +12,7 @@ This repository contains the guidelines for the frontend interview question, as 
 The goal is to use the provided API to build the prototype of an invoice editor.
 This prototype will contain pages to list, create, edit, delete and finalize invoices.
 
-We will pay attention to code quality and user experiance. We will NOT pay attention to UI.
+We will pay attention to code quality and user experience. We will NOT pay attention to UI.
 We expect you to identify two advanced features which could be useful for an invoice editor. For each feature, we ask for:
 - an explanation of when this feature could be useful
 - a prototype implementation (feel free to work around API limitations)
