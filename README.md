@@ -69,7 +69,7 @@ ReactDOM.render(
 );
 ```
 
-Use it like the following example:
+Use the api client as follow
 
 ```
 import * as React from 'react;
