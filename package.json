@@ -24,6 +24,8 @@
     "formik": "^2.2.6",
     "lodash": "^4.17.20",
     "numeral": "^2.0.6",
+    "openapi-client-axios": "^4.0.0",
+    "openapi-client-axios-typegen": "^3.14.1",
     "prop-types": "^15.7.2",
     "query-string": "^6.13.8",
     "react": "^17.0.1",
@@ -44,7 +46,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "openapi:gen": "yarn -s typegen openAPI/schema.yml > openAPI/gen/client.d.ts"
   },
   "eslintConfig": {
     "extends": [

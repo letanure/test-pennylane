@@ -7,14 +7,15 @@ info:
     email: "thierry@pennylane.tech"
 host: "jean-test-api.herokuapp.com"
 tags:
-- name: "invoices"
-- name: "customers"
-- name: "products"
+  - name: "invoices"
+  - name: "customers"
+  - name: "products"
 schemes:
-- "https"
+  - "https"
 paths:
   /invoices:
     get:
+      operationId: "GetInvoices"
       tags:
         - "invoices"
       summary: "Retrieve a list of invoices"
@@ -42,6 +43,7 @@ paths:
         "400":
           description: "Invalid X-SESSION header"
     post:
+      operationId: "CreateInvoice"
       tags:
         - "invoices"
       summary: "Create an invoice"
@@ -124,6 +126,7 @@ paths:
           description: "Missing customer"
   /invoices/{id}:
     get:
+      operationId: "FindInvoice"
       tags:
         - "invoices"
       summary: "Find an invoice by ID"
@@ -144,6 +147,7 @@ paths:
         "400":
           description: "Invalid X-SESSION header"
     patch:
+      operationId: "PatchInvoice"
       tags:
         - "invoices"
       summary: "Update an invoice"
@@ -234,6 +238,7 @@ paths:
         "400":
           description: "Invalid X-SESSION header"
     put:
+      operationId: "UpdateInvoice"
       tags:
         - "invoices"
       summary: "Update an invoice"
@@ -324,6 +329,7 @@ paths:
         "400":
           description: "Invalid X-SESSION header"
     delete:
+      operationId: "DeleteInvoice"
       tags:
         - "invoices"
       summary: "Delete an invoice"
@@ -345,6 +351,7 @@ paths:
           description: "Impossible to delete a finalized invoice"
   /customers/search:
     get:
+      operationId: "SearchCustomers"
       tags:
         - "customers"
       summary: "Search for a customer in all the fields"
@@ -375,6 +382,7 @@ paths:
           description: "Invalid X-SESSION header"
   /products/search:
     get:
+      operationId: "SearchProducts"
       tags:
         - "products"
       summary: "Search for a product in all the fields"
