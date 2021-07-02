@@ -49,6 +49,29 @@ Point of attention :
 
 The API codebase is available [here](https://github.com/pennylane-hq/jean_test_api) if you want to have a look.
 
+### API client
+
+The repository include an Axios client.
+Use it like the following example:
+
+```
+import * as React from 'react;
+import { useApi } from "api";
+
+const FooComponent = () => {
+  const api = useApi();
+
+  React.useEffect(() => {
+    const fetch = async () => {
+      const res = await api.getInvoices();
+    }
+
+    fetch();
+  })
+
+  return <div>bar</div>;
+}
+```
 ## Repository contents
 
 This repository has been initialized with [create-react-app](https://github.com/facebook/create-react-app). It is to be used as a starting point for developing the prototype.
@@ -56,3 +79,5 @@ This repository has been initialized with [create-react-app](https://github.com/
 A set of packages has been included in [package.json](./package.json), please feel free to use them. Their usage is optional; you are not expected to learn any new libraries for this test.
 
 As much as possible, please avoid introducing new dependencies - if you find this necessary, please explain why.
+
+

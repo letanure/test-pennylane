@@ -1,0 +1,796 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "",
+    "version": "1.0.0",
+    "title": "Jean Test API",
+    "contact": {
+      "email": "thierry@pennylane.tech"
+    }
+  },
+  "host": "jean-test-api.herokuapp.com",
+  "tags": [
+    {
+      "name": "invoices"
+    },
+    {
+      "name": "customers"
+    },
+    {
+      "name": "products"
+    }
+  ],
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/invoices": {
+      "get": {
+        "operationId": "getInvoices",
+        "tags": [
+          "invoices"
+        ],
+        "summary": "Retrieve a list of invoices",
+        "parameters": [
+          {
+            "name": "per_page",
+            "in": "query",
+            "description": "Number of element per page",
+            "type": "integer"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Page number to retrieve",
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns the matching invoices",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "invoices": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/Invoice"
+                  }
+                },
+                "pagination": {
+                  "$ref": "#/definitions/Pagination"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid X-SESSION header"
+          }
+        }
+      },
+      "post": {
+        "operationId": "createInvoice",
+        "tags": [
+          "invoices"
+        ],
+        "summary": "Create an invoice",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Invoice object to create",
+            "schema": {
+              "type": "object",
+              "required": [
+                "customer_id"
+              ],
+              "properties": {
+                "customer_id": {
+                  "type": "integer",
+                  "example": 5747
+                },
+                "finalized": {
+                  "type": "boolean",
+                  "default": false
+                },
+                "paid": {
+                  "type": "boolean",
+                  "default": false
+                },
+                "date": {
+                  "type": "string",
+                  "format": "date",
+                  "example": "2021-03-23"
+                },
+                "deadline": {
+                  "type": "string",
+                  "format": "date"
+                },
+                "invoice_lines_attributes": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "product_id": {
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 19268
+                      },
+                      "quantity": {
+                        "type": "integer",
+                        "example": 1
+                      },
+                      "unit": {
+                        "type": "string",
+                        "default": "day",
+                        "enum": [
+                          "piece",
+                          "hour",
+                          "day"
+                        ]
+                      },
+                      "label": {
+                        "type": "string",
+                        "example": "13"
+                      },
+                      "vat_rate": {
+                        "type": "string",
+                        "default": "20",
+                        "enum": [
+                          "20",
+                          "10",
+                          "5.5",
+                          "2.1"
+                        ]
+                      },
+                      "price": {
+                        "type": "integer",
+                        "example": 120
+                      },
+                      "tax": {
+                        "type": "integer",
+                        "example": 20
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns the created invoice",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "invoices": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/Invoice"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid X-SESSION header"
+          },
+          "422": {
+            "description": "Missing customer"
+          }
+        }
+      }
+    },
+    "/invoices/{id}": {
+      "get": {
+        "operationId": "findInvoice",
+        "tags": [
+          "invoices"
+        ],
+        "summary": "Find an invoice by ID",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of invoice to return",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns the matching invoices",
+            "schema": {
+              "$ref": "#/definitions/Invoice"
+            }
+          },
+          "400": {
+            "description": "Invalid X-SESSION header"
+          }
+        }
+      },
+      "patch": {
+        "operationId": "patchInvoice",
+        "tags": [
+          "invoices"
+        ],
+        "summary": "Update an invoice",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of invoice to edit",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Invoice object to edit",
+            "schema": {
+              "type": "object",
+              "required": [
+                "customer_id"
+              ],
+              "properties": {
+                "customer_id": {
+                  "type": "integer",
+                  "example": 5747
+                },
+                "finalized": {
+                  "type": "boolean",
+                  "default": false
+                },
+                "paid": {
+                  "type": "boolean",
+                  "default": false
+                },
+                "date": {
+                  "type": "string",
+                  "format": "date",
+                  "example": "2021-03-23"
+                },
+                "deadline": {
+                  "type": "string",
+                  "format": "date"
+                },
+                "invoice_lines_attributes": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "_destroy": {
+                        "type": "boolean",
+                        "default": false
+                      },
+                      "product_id": {
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 19268
+                      },
+                      "quantity": {
+                        "type": "integer",
+                        "example": 1
+                      },
+                      "unit": {
+                        "type": "string",
+                        "default": "day",
+                        "enum": [
+                          "piece",
+                          "hour",
+                          "day"
+                        ]
+                      },
+                      "label": {
+                        "type": "string",
+                        "example": "13"
+                      },
+                      "vat_rate": {
+                        "type": "string",
+                        "default": "20",
+                        "enum": [
+                          "20",
+                          "10",
+                          "5.5",
+                          "2.1"
+                        ]
+                      },
+                      "price": {
+                        "type": "integer",
+                        "example": 120
+                      },
+                      "tax": {
+                        "type": "integer",
+                        "example": 20
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns the edited invoice",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "invoices": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/Invoice"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid X-SESSION header"
+          }
+        }
+      },
+      "put": {
+        "operationId": "updateInvoice",
+        "tags": [
+          "invoices"
+        ],
+        "summary": "Update an invoice",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of invoice to edit",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Invoice object to edit",
+            "schema": {
+              "type": "object",
+              "required": [
+                "customer_id"
+              ],
+              "properties": {
+                "customer_id": {
+                  "type": "integer",
+                  "example": 5747
+                },
+                "finalized": {
+                  "type": "boolean",
+                  "default": false
+                },
+                "paid": {
+                  "type": "boolean",
+                  "default": false
+                },
+                "date": {
+                  "type": "string",
+                  "format": "date",
+                  "example": "2021-03-23"
+                },
+                "deadline": {
+                  "type": "string",
+                  "format": "date"
+                },
+                "invoice_lines_attributes": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "_destroy": {
+                        "type": "boolean",
+                        "default": false
+                      },
+                      "product_id": {
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 19268
+                      },
+                      "quantity": {
+                        "type": "integer",
+                        "example": 1
+                      },
+                      "unit": {
+                        "type": "string",
+                        "default": "day",
+                        "enum": [
+                          "piece",
+                          "hour",
+                          "day"
+                        ]
+                      },
+                      "label": {
+                        "type": "string",
+                        "example": "13"
+                      },
+                      "vat_rate": {
+                        "type": "string",
+                        "default": "20",
+                        "enum": [
+                          "20",
+                          "10",
+                          "5.5",
+                          "2.1"
+                        ]
+                      },
+                      "price": {
+                        "type": "integer",
+                        "example": 120
+                      },
+                      "tax": {
+                        "type": "integer",
+                        "example": 20
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns the edited invoice",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "invoices": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/Invoice"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid X-SESSION header"
+          }
+        }
+      },
+      "delete": {
+        "operationId": "deleteInvoice",
+        "tags": [
+          "invoices"
+        ],
+        "summary": "Delete an invoice",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of invoice to delete",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successfull deletion"
+          },
+          "400": {
+            "description": "Invalid X-SESSION header"
+          },
+          "422": {
+            "description": "Impossible to delete a finalized invoice"
+          }
+        }
+      }
+    },
+    "/customers/search": {
+      "get": {
+        "operationId": "searchCustomers",
+        "tags": [
+          "customers"
+        ],
+        "summary": "Search for a customer in all the fields",
+        "description": "",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "query",
+            "type": "string",
+            "description": "String you want to search for",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns the matching customers",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "customers": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/Customer"
+                  }
+                },
+                "pagination": {
+                  "$ref": "#/definitions/Pagination"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid X-SESSION header"
+          }
+        }
+      }
+    },
+    "/products/search": {
+      "get": {
+        "operationId": "searchProducts",
+        "tags": [
+          "products"
+        ],
+        "summary": "Search for a product in all the fields",
+        "description": "",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "query",
+            "type": "string",
+            "description": "String you want to search for",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns the matching products",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "customers": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/Product"
+                  }
+                },
+                "pagination": {
+                  "$ref": "#/definitions/Pagination"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid X-SESSION header"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Invoice": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "example": 5747
+        },
+        "customer_id": {
+          "type": "integer",
+          "example": 6921
+        },
+        "finalized": {
+          "type": "boolean",
+          "default": false
+        },
+        "paid": {
+          "type": "boolean",
+          "default": false
+        },
+        "date": {
+          "type": "string",
+          "format": "date",
+          "example": "2021-03-23"
+        },
+        "deadline": {
+          "type": "string",
+          "format": "date"
+        },
+        "total": {
+          "type": "string",
+          "example": "35355.0"
+        },
+        "tax": {
+          "type": "string",
+          "example": "5102.73"
+        },
+        "customer": {
+          "$ref": "#/definitions/Customer"
+        },
+        "invoice_lines": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/InvoiceLine"
+          }
+        }
+      }
+    },
+    "InvoiceLine": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "example": 9122
+        },
+        "invoice_id": {
+          "type": "integer",
+          "format": "int64",
+          "example": 5752
+        },
+        "product_id": {
+          "type": "integer",
+          "format": "int64",
+          "example": 19268
+        },
+        "quantity": {
+          "type": "integer",
+          "example": 1
+        },
+        "unit": {
+          "type": "string",
+          "default": "day",
+          "enum": [
+            "piece",
+            "hour",
+            "day"
+          ]
+        },
+        "label": {
+          "type": "string",
+          "example": "13"
+        },
+        "vat_rate": {
+          "type": "string",
+          "default": "20",
+          "enum": [
+            "20",
+            "10",
+            "5.5",
+            "01"
+          ]
+        },
+        "price": {
+          "type": "string",
+          "example": "19245.0"
+        },
+        "tax": {
+          "type": "string",
+          "example": "3207.5"
+        },
+        "product": {
+          "$ref": "#/definitions/Product"
+        }
+      }
+    },
+    "Customer": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "example": 6772
+        },
+        "first_name": {
+          "type": "string",
+          "example": "Jean"
+        },
+        "last_name": {
+          "type": "string",
+          "example": "Dupont"
+        },
+        "address": {
+          "type": "string",
+          "example": "1478 Jessica Valleys"
+        },
+        "zip_code": {
+          "type": "string",
+          "example": "19884-5031"
+        },
+        "city": {
+          "type": "string",
+          "example": "Scottychester"
+        },
+        "country": {
+          "type": "string",
+          "example": "Palestine, State of"
+        },
+        "country_code": {
+          "type": "string",
+          "example": "PS"
+        }
+      },
+      "xml": {
+        "name": "Customer"
+      }
+    },
+    "Product": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "example": 19327
+        },
+        "label": {
+          "type": "string",
+          "example": "Renault Clio"
+        },
+        "unit_price": {
+          "type": "string",
+          "example": "12255.0"
+        },
+        "unit_price_without_tax": {
+          "type": "string",
+          "example": "11140.91"
+        },
+        "unit_tax": {
+          "type": "string",
+          "example": "1114.09"
+        }
+      },
+      "xml": {
+        "name": "Product"
+      }
+    },
+    "Pagination": {
+      "type": "object",
+      "properties": {
+        "page": {
+          "type": "integer",
+          "example": 1
+        },
+        "page_size": {
+          "type": "integer",
+          "example": 25
+        },
+        "total_pages": {
+          "type": "integer",
+          "example": 1
+        },
+        "total_entries": {
+          "type": "integer",
+          "example": 3
+        }
+      },
+      "xml": {
+        "name": "Pagination"
+      }
+    }
+  }
+}
