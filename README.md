@@ -52,6 +52,23 @@ The API codebase is available [here](https://github.com/pennylane-hq/jean_test_a
 ### API client
 
 The repository include an Axios client.
+
+Before using it, please add the token you received in `/src/app/index.tsx`.
+If you do not have one, please contact us.
+
+```
+ReactDOM.render(
+  ...
+  <ApiProvider
+    url="https://jean-test-api.herokuapp.com/"
+    token="" // set your api token here
+  >
+    <App />
+  </ApiProvider>
+  ...
+);
+```
+
 Use it like the following example:
 
 ```

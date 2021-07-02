@@ -9,7 +9,7 @@ ReactDOM.render(
   <React.StrictMode>
     <ApiProvider
       url="https://jean-test-api.herokuapp.com/"
-      token="638c52d9-bb6b-4497-a5ba-d15d356edf82"
+      token="" // set your api token here
     >
       <App />
     </ApiProvider>
