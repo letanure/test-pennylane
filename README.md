@@ -49,6 +49,8 @@ Point of attention :
 
 The API codebase is available [here](https://github.com/pennylane-hq/jean_test_api) if you want to have a look.
 
+The swagger documentation is available [here](https://jean-test-api.herokuapp.com/api-docs/index.html)
+
 ### API client
 
 The repository include an Axios client.
