@@ -19,17 +19,6 @@ const api = new OpenAPIClientAxios({
 export const ApiProvider: React.FC = ({ children }) => {
   const client = api.initSync<Client>()
 
-  // const [client, setClient] = React.useState<any>();
-
-  // React.useEffect(() => {
-  //   const initClient = async () => {
-  //     const c = await api.getClient<Client>()
-  //     setClient(c)
-  //   }
-
-  //   initClient()
-  // }, [])
-
   return (
     <ApiContext.Provider value={{ client }}>{children}</ApiContext.Provider>
   )
