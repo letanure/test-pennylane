@@ -42,13 +42,54 @@ The prototype will interact with 4 entities:
 
 ## API
 
-The API is available at this URL: https://jean-test-api.herokuapp.com/. To use it, you must send the authorization token in the `X-SESSION` header (contact thierry@pennylane.tech if needed).
+The API is available at this URL: https://jean-test-api.herokuapp.com/. To use it, you 
+must send the authorization token.
+
+The openAPI documentation is available [here](https://jean-test-api.herokuapp.com/api-docs/index.html)
 
 Point of attention :
-- invoice lines are accessed via their invoice. To update them, use the relevant invoice API methods, as described in the Invoice API documentation (e.g. https://jean-test-api.herokuapp.com/apipie/1.0.html)
+- invoice lines are accessed via their invoice. To update them, use the relevant invoice API methods, as described in the Invoice API documentation
 
-The API codebase is available [here](https://github.com/pennylane-hq/jean_test_api) if you want to have a look.
+### API client
 
+The repository include an Axios client.
+
+Before using it, please add the token you received in `/src/app/index.tsx`.
+If you do not have one, please contact us.
+
+```
+ReactDOM.render(
+  ...
+  <ApiProvider
+    url="https://jean-test-api.herokuapp.com/"
+    token="" // set your api token here
+  >
+    <App />
+  </ApiProvider>
+  ...
+);
+```
+
+Use the api client as follow
+
+```
+import * as React from 'react;
+import { useApi } from "api";
+
+const FooComponent = () => {
+  const api = useApi();
+
+  React.useEffect(() => {
+    const fetch = async () => {
+      const res = await api.getInvoices();
+    }
+
+    fetch();
+  })
+
+  return <div>bar</div>;
+}
+```
 ## Repository contents
 
 This repository has been initialized with [create-react-app](https://github.com/facebook/create-react-app). It is to be used as a starting point for developing the prototype.
@@ -56,3 +97,5 @@ This repository has been initialized with [create-react-app](https://github.com/
 A set of packages has been included in [package.json](./package.json), please feel free to use them. Their usage is optional; you are not expected to learn any new libraries for this test.
 
 As much as possible, please avoid introducing new dependencies - if you find this necessary, please explain why.
+
+
