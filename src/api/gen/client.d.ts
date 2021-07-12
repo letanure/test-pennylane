@@ -6,512 +6,511 @@ import {
   AxiosRequestConfig,
 } from 'openapi-client-axios'; 
 
-declare namespace Definitions {
-  export interface Customer {
-    /**
-     * example:
-     * 6772
-     */
-    id?: number; // int64
-    /**
-     * example:
-     * Jean
-     */
-    first_name?: string;
-    /**
-     * example:
-     * Dupont
-     */
-    last_name?: string;
-    /**
-     * example:
-     * 1478 Jessica Valleys
-     */
-    address?: string;
-    /**
-     * example:
-     * 19884-5031
-     */
-    zip_code?: string;
-    /**
-     * example:
-     * Scottychester
-     */
-    city?: string;
-    /**
-     * example:
-     * Palestine, State of
-     */
-    country?: string;
-    /**
-     * example:
-     * PS
-     */
-    country_code?: string;
-  }
-  export interface Invoice {
-    /**
-     * example:
-     * 5747
-     */
-    id?: number; // int64
-    /**
-     * example:
-     * 6921
-     */
-    customer_id?: number;
-    finalized?: boolean;
-    paid?: boolean;
-    /**
-     * example:
-     * 2021-03-23
-     */
-    date?: string; // date
-    deadline?: string; // date
-    /**
-     * example:
-     * 35355.0
-     */
-    total?: string;
-    /**
-     * example:
-     * 5102.73
-     */
-    tax?: string;
-    customer?: Customer;
-    invoice_lines?: InvoiceLine[];
-  }
-  export interface InvoiceLine {
-    /**
-     * example:
-     * 9122
-     */
-    id?: number; // int64
-    /**
-     * example:
-     * 5752
-     */
-    invoice_id?: number; // int64
-    /**
-     * example:
-     * 19268
-     */
-    product_id?: number; // int64
-    /**
-     * example:
-     * 1
-     */
-    quantity?: number;
-    unit?: "piece" | "hour" | "day";
-    /**
-     * example:
-     * 13
-     */
-    label?: string;
-    vat_rate?: "20" | "10" | "5.5" | "01";
-    /**
-     * example:
-     * 19245.0
-     */
-    price?: string;
-    /**
-     * example:
-     * 3207.5
-     */
-    tax?: string;
-    product?: Product;
-  }
-  export interface Pagination {
-    /**
-     * example:
-     * 1
-     */
-    page?: number;
-    /**
-     * example:
-     * 25
-     */
-    page_size?: number;
-    /**
-     * example:
-     * 1
-     */
-    total_pages?: number;
-    /**
-     * example:
-     * 3
-     */
-    total_entries?: number;
-  }
-  export interface Product {
-    /**
-     * example:
-     * 19327
-     */
-    id?: number; // int64
-    /**
-     * example:
-     * Renault Clio
-     */
-    label?: string;
-    /**
-     * example:
-     * 12255.0
-     */
-    unit_price?: string;
-    /**
-     * example:
-     * 11140.91
-     */
-    unit_price_without_tax?: string;
-    /**
-     * example:
-     * 1114.09
-     */
-    unit_tax?: string;
+declare namespace Components {
+  namespace Schemas {
+    export interface Customer {
+      /**
+       * example:
+       * 6773
+       */
+      id: number;
+      /**
+       * example:
+       * Jean
+       */
+      first_name: string;
+      /**
+       * example:
+       * Dupont
+       */
+      last_name: string;
+      /**
+       * example:
+       * 9 impasse Sauvey
+       */
+      address: string;
+      /**
+       * example:
+       * 50100
+       */
+      zip_code: string;
+      /**
+       * example:
+       * Cherbourg
+       */
+      city: string;
+      /**
+       * example:
+       * France
+       */
+      country: string;
+      /**
+       * example:
+       * FR
+       */
+      country_code: string;
+    }
+    export interface Error {
+      message: string;
+    }
+    export interface Invoice {
+      /**
+       * example:
+       * 5785
+       */
+      id: number;
+      /**
+       * example:
+       * 6773
+       */
+      customer_id: number | null;
+      /**
+       * example:
+       * false
+       */
+      finalized: boolean;
+      /**
+       * example:
+       * true
+       */
+      paid: boolean;
+      /**
+       * example:
+       * 2021-02-03
+       */
+      date: string | null;
+      /**
+       * example:
+       * 2021-03-05
+       */
+      deadline: string | null;
+      /**
+       * example:
+       * 120.00
+       */
+      total: string | null;
+      /**
+       * example:
+       * 20.00
+       */
+      tax: string | null;
+      invoice_lines: InvoiceLine[];
+    }
+    export interface InvoiceLine {
+      /**
+       * example:
+       * 9181
+       */
+      id: number;
+      /**
+       * example:
+       * 5785
+       */
+      invoice_id: number;
+      /**
+       * example:
+       * 67
+       */
+      product_id: number;
+      /**
+       * example:
+       * 1
+       */
+      quantity: number;
+      /**
+       * example:
+       * Tesla Model S with Pennylane logo
+       */
+      label: string;
+      unit: Unit;
+      vat_rate: VatRate;
+      /**
+       * example:
+       * 1s20.00
+       */
+      price: string;
+      /**
+       * example:
+       * 20.00
+       */
+      tax: string;
+      product: Product;
+    }
+    export interface InvoiceLineRequestPayload {
+      /**
+       * example:
+       * 45
+       */
+      id?: number;
+      /**
+       * example:
+       * false
+       */
+      _destroy?: boolean;
+      /**
+       * example:
+       * 67
+       */
+      product_id?: number;
+      /**
+       * example:
+       * 1
+       */
+      quantity?: number;
+      /**
+       * example:
+       * Tesla Model S with Pennylane logo
+       */
+      label?: string;
+      unit?: Unit;
+      vat_rate?: VatRate;
+      /**
+       * example:
+       * 120.00
+       */
+      price?: string | number;
+      /**
+       * example:
+       * 20.00
+       */
+      tax?: string | number;
+    }
+    export interface InvoiceRequestPayload {
+      /**
+       * example:
+       * 6773
+       */
+      customer_id?: number;
+      /**
+       * example:
+       * false
+       */
+      finalized?: boolean;
+      /**
+       * example:
+       * true
+       */
+      paid?: boolean;
+      /**
+       * example:
+       * 2021-02-03
+       */
+      date?: string | null;
+      /**
+       * example:
+       * 2021-03-05
+       */
+      deadline?: string | null;
+      invoice_lines_attributes?: InvoiceLineRequestPayload[];
+    }
+    export interface Pagination {
+      /**
+       * example:
+       * 2
+       */
+      page: number;
+      /**
+       * example:
+       * 25
+       */
+      page_size: number;
+      /**
+       * example:
+       * 2
+       */
+      total_pages: number;
+      /**
+       * example:
+       * 30
+       */
+      total_entries: number;
+    }
+    export interface Product {
+      /**
+       * example:
+       * 67
+       */
+      id: number;
+      /**
+       * example:
+       * Tesla Model S
+       */
+      label: string;
+      vat_rate: VatRate;
+      unit: Unit;
+      /**
+       * example:
+       * 1980
+       */
+      unit_price: string;
+      /**
+       * example:
+       * 1800
+       */
+      unit_price_without_tax: string;
+      /**
+       * example:
+       * 180
+       */
+      unit_tax: string;
+    }
+    export type Unit = "hour" | "day" | "piece";
+    export type VatRate = "0" | "5.5" | "10" | "20";
   }
 }
 declare namespace Paths {
-  namespace CreateInvoice {
-    export interface BodyParameters {
-      body?: Parameters.Body;
+  namespace DeleteInvoice {
+    export interface HeaderParameters {
+      "X-SESSION": Parameters.XSESSION;
     }
     namespace Parameters {
-      export interface Body {
-        /**
-         * example:
-         * 5747
-         */
-        customer_id: number;
-        finalized?: boolean;
-        paid?: boolean;
-        /**
-         * example:
-         * 2021-03-23
-         */
-        date?: string; // date
-        deadline?: string; // date
-        invoice_lines_attributes?: {
-          /**
-           * example:
-           * 19268
-           */
-          product_id?: number; // int64
-          /**
-           * example:
-           * 1
-           */
-          quantity?: number;
-          unit?: "piece" | "hour" | "day";
-          /**
-           * example:
-           * 13
-           */
-          label?: string;
-          vat_rate?: "20" | "10" | "5.5" | "2.1";
-          /**
-           * example:
-           * 120
-           */
-          price?: number;
-          /**
-           * example:
-           * 20
-           */
-          tax?: number;
-        }[];
-      }
+      export type Id = number;
+      export type XSESSION = string;
     }
-    namespace Responses {
-      export interface $200 {
-        invoices?: Definitions.Invoice[];
-      }
+    export interface PathParameters {
+      id: Parameters.Id;
     }
   }
-  namespace FindInvoice {
+  namespace GetInvoice {
+    export interface HeaderParameters {
+      "X-SESSION": Parameters.XSESSION;
+    }
+    namespace Parameters {
+      export type Id = number;
+      export type XSESSION = string;
+    }
+    export interface PathParameters {
+      id: Parameters.Id;
+    }
     namespace Responses {
-      export type $200 = Definitions.Invoice;
+      export type $200 = Components.Schemas.Invoice;
     }
   }
   namespace GetInvoices {
-    namespace Responses {
-      export interface $200 {
-        invoices?: Definitions.Invoice[];
-        pagination?: Definitions.Pagination;
-      }
-    }
-  }
-  namespace PatchInvoice {
-    export interface BodyParameters {
-      body?: Parameters.Body;
+    export interface HeaderParameters {
+      "X-SESSION": Parameters.XSESSION;
     }
     namespace Parameters {
-      export interface Body {
-        /**
-         * example:
-         * 5747
-         */
-        customer_id: number;
-        finalized?: boolean;
-        paid?: boolean;
-        /**
-         * example:
-         * 2021-03-23
-         */
-        date?: string; // date
-        deadline?: string; // date
-        invoice_lines_attributes?: {
-          _destroy?: boolean;
-          /**
-           * example:
-           * 19268
-           */
-          product_id?: number; // int64
-          /**
-           * example:
-           * 1
-           */
-          quantity?: number;
-          unit?: "piece" | "hour" | "day";
-          /**
-           * example:
-           * 13
-           */
-          label?: string;
-          vat_rate?: "20" | "10" | "5.5" | "2.1";
-          /**
-           * example:
-           * 120
-           */
-          price?: number;
-          /**
-           * example:
-           * 20
-           */
-          tax?: number;
-        }[];
-      }
+      export type Filter = string;
+      export type Page = number;
+      export type PerPage = number;
+      export type Sort = string;
+      export type XSESSION = string;
+    }
+    export interface QueryParameters {
+      page?: Parameters.Page;
+      per_page?: Parameters.PerPage;
+      filter?: Parameters.Filter;
+      sort?: Parameters.Sort;
     }
     namespace Responses {
       export interface $200 {
-        invoices?: Definitions.Invoice[];
+        pagination: Components.Schemas.Pagination;
+        invoices: Components.Schemas.Invoice[];
       }
     }
   }
-  namespace SearchCustomers {
-    namespace Responses {
-      export interface $200 {
-        customers?: Definitions.Customer[];
-        pagination?: Definitions.Pagination;
-      }
-    }
-  }
-  namespace SearchProducts {
-    namespace Responses {
-      export interface $200 {
-        customers?: Definitions.Product[];
-        pagination?: Definitions.Pagination;
-      }
-    }
-  }
-  namespace UpdateInvoice {
-    export interface BodyParameters {
-      body?: Parameters.Body;
+  namespace GetSearchCustomers {
+    export interface HeaderParameters {
+      "X-SESSION": Parameters.XSESSION;
     }
     namespace Parameters {
-      export interface Body {
-        /**
-         * example:
-         * 5747
-         */
-        customer_id: number;
-        finalized?: boolean;
-        paid?: boolean;
-        /**
-         * example:
-         * 2021-03-23
-         */
-        date?: string; // date
-        deadline?: string; // date
-        invoice_lines_attributes?: {
-          _destroy?: boolean;
-          /**
-           * example:
-           * 19268
-           */
-          product_id?: number; // int64
-          /**
-           * example:
-           * 1
-           */
-          quantity?: number;
-          unit?: "piece" | "hour" | "day";
-          /**
-           * example:
-           * 13
-           */
-          label?: string;
-          vat_rate?: "20" | "10" | "5.5" | "2.1";
-          /**
-           * example:
-           * 120
-           */
-          price?: number;
-          /**
-           * example:
-           * 20
-           */
-          tax?: number;
-        }[];
-      }
+      export type Page = number;
+      export type PerPage = number;
+      export type Query = string;
+      export type XSESSION = string;
+    }
+    export interface QueryParameters {
+      query?: Parameters.Query;
+      page?: Parameters.Page;
+      per_page?: Parameters.PerPage;
     }
     namespace Responses {
       export interface $200 {
-        invoices?: Definitions.Invoice[];
+        pagination: Components.Schemas.Pagination;
+        customers: Components.Schemas.Customer[];
       }
+    }
+  }
+  namespace GetSearchProducts {
+    export interface HeaderParameters {
+      "X-SESSION": Parameters.XSESSION;
+    }
+    namespace Parameters {
+      export type Page = number;
+      export type PerPage = number;
+      export type Query = string;
+      export type XSESSION = string;
+    }
+    export interface QueryParameters {
+      query?: Parameters.Query;
+      page?: Parameters.Page;
+      per_page?: Parameters.PerPage;
+    }
+    namespace Responses {
+      export interface $200 {
+        pagination: Components.Schemas.Pagination;
+        products: Components.Schemas.Product[];
+      }
+    }
+  }
+  namespace PostInvoices {
+    export interface HeaderParameters {
+      "X-SESSION": Parameters.XSESSION;
+    }
+    namespace Parameters {
+      export type XSESSION = string;
+    }
+    export interface RequestBody {
+      invoice?: Components.Schemas.InvoiceRequestPayload;
+    }
+    namespace Responses {
+      export type $200 = Components.Schemas.Invoice;
+    }
+  }
+  namespace PutInvoice {
+    export interface HeaderParameters {
+      "X-SESSION": Parameters.XSESSION;
+    }
+    namespace Parameters {
+      export type Id = number;
+      export type XSESSION = string;
+    }
+    export interface PathParameters {
+      id: Parameters.Id;
+    }
+    export interface RequestBody {
+      invoice?: Components.Schemas.InvoiceRequestPayload;
+    }
+    namespace Responses {
+      export type $200 = Components.Schemas.Invoice;
     }
   }
 }
 
 export interface OperationMethods {
   /**
-   * getInvoices - Retrieve a list of invoices
+   * getSearchProducts - Search products
+   */
+  'getSearchProducts'(
+    parameters?: Parameters<Paths.GetSearchProducts.QueryParameters & Paths.GetSearchProducts.HeaderParameters> | null,
+    data?: any,
+    config?: AxiosRequestConfig  
+  ): OperationResponse<Paths.GetSearchProducts.Responses.$200>
+  /**
+   * getSearchCustomers - Search customers
+   */
+  'getSearchCustomers'(
+    parameters?: Parameters<Paths.GetSearchCustomers.QueryParameters & Paths.GetSearchCustomers.HeaderParameters> | null,
+    data?: any,
+    config?: AxiosRequestConfig  
+  ): OperationResponse<Paths.GetSearchCustomers.Responses.$200>
+  /**
+   * getInvoices - list invoices
    */
   'getInvoices'(
-    parameters?: Parameters<UnknownParamsObject> | null,
+    parameters?: Parameters<Paths.GetInvoices.QueryParameters & Paths.GetInvoices.HeaderParameters> | null,
     data?: any,
     config?: AxiosRequestConfig  
   ): OperationResponse<Paths.GetInvoices.Responses.$200>
   /**
-   * createInvoice - Create an invoice
+   * postInvoices - create an invoice
    */
-  'createInvoice'(
-    parameters?: Parameters<UnknownParamsObject> | null,
+  'postInvoices'(
+    parameters?: Parameters<Paths.PostInvoices.HeaderParameters> | null,
+    data?: Paths.PostInvoices.RequestBody,
+    config?: AxiosRequestConfig  
+  ): OperationResponse<Paths.PostInvoices.Responses.$200>
+  /**
+   * getInvoice - get an invoice
+   */
+  'getInvoice'(
+    parameters?: Parameters<Paths.GetInvoice.PathParameters & Paths.GetInvoice.HeaderParameters> | null,
     data?: any,
     config?: AxiosRequestConfig  
-  ): OperationResponse<Paths.CreateInvoice.Responses.$200>
+  ): OperationResponse<Paths.GetInvoice.Responses.$200>
   /**
-   * findInvoice - Find an invoice by ID
+   * putInvoice - update an invoice
    */
-  'findInvoice'(
-    parameters?: Parameters<UnknownParamsObject> | null,
-    data?: any,
+  'putInvoice'(
+    parameters?: Parameters<Paths.PutInvoice.PathParameters & Paths.PutInvoice.HeaderParameters> | null,
+    data?: Paths.PutInvoice.RequestBody,
     config?: AxiosRequestConfig  
-  ): OperationResponse<Paths.FindInvoice.Responses.$200>
+  ): OperationResponse<Paths.PutInvoice.Responses.$200>
   /**
-   * updateInvoice - Update an invoice
-   */
-  'updateInvoice'(
-    parameters?: Parameters<UnknownParamsObject> | null,
-    data?: any,
-    config?: AxiosRequestConfig  
-  ): OperationResponse<Paths.UpdateInvoice.Responses.$200>
-  /**
-   * patchInvoice - Update an invoice
-   */
-  'patchInvoice'(
-    parameters?: Parameters<UnknownParamsObject> | null,
-    data?: any,
-    config?: AxiosRequestConfig  
-  ): OperationResponse<Paths.PatchInvoice.Responses.$200>
-  /**
-   * deleteInvoice - Delete an invoice
+   * deleteInvoice - delete an invoice
    */
   'deleteInvoice'(
-    parameters?: Parameters<UnknownParamsObject> | null,
+    parameters?: Parameters<Paths.DeleteInvoice.PathParameters & Paths.DeleteInvoice.HeaderParameters> | null,
     data?: any,
     config?: AxiosRequestConfig  
   ): OperationResponse<any>
-  /**
-   * searchCustomers - Search for a customer in all the fields
-   */
-  'searchCustomers'(
-    parameters?: Parameters<UnknownParamsObject> | null,
-    data?: any,
-    config?: AxiosRequestConfig  
-  ): OperationResponse<Paths.SearchCustomers.Responses.$200>
-  /**
-   * searchProducts - Search for a product in all the fields
-   */
-  'searchProducts'(
-    parameters?: Parameters<UnknownParamsObject> | null,
-    data?: any,
-    config?: AxiosRequestConfig  
-  ): OperationResponse<Paths.SearchProducts.Responses.$200>
 }
 
 export interface PathsDictionary {
-  ['/invoices']: {
+  ['/products/search']: {
     /**
-     * getInvoices - Retrieve a list of invoices
+     * getSearchProducts - Search products
      */
     'get'(
-      parameters?: Parameters<UnknownParamsObject> | null,
+      parameters?: Parameters<Paths.GetSearchProducts.QueryParameters & Paths.GetSearchProducts.HeaderParameters> | null,
+      data?: any,
+      config?: AxiosRequestConfig  
+    ): OperationResponse<Paths.GetSearchProducts.Responses.$200>
+  }
+  ['/customers/search']: {
+    /**
+     * getSearchCustomers - Search customers
+     */
+    'get'(
+      parameters?: Parameters<Paths.GetSearchCustomers.QueryParameters & Paths.GetSearchCustomers.HeaderParameters> | null,
+      data?: any,
+      config?: AxiosRequestConfig  
+    ): OperationResponse<Paths.GetSearchCustomers.Responses.$200>
+  }
+  ['/invoices']: {
+    /**
+     * getInvoices - list invoices
+     */
+    'get'(
+      parameters?: Parameters<Paths.GetInvoices.QueryParameters & Paths.GetInvoices.HeaderParameters> | null,
       data?: any,
       config?: AxiosRequestConfig  
     ): OperationResponse<Paths.GetInvoices.Responses.$200>
     /**
-     * createInvoice - Create an invoice
+     * postInvoices - create an invoice
      */
     'post'(
-      parameters?: Parameters<UnknownParamsObject> | null,
-      data?: any,
+      parameters?: Parameters<Paths.PostInvoices.HeaderParameters> | null,
+      data?: Paths.PostInvoices.RequestBody,
       config?: AxiosRequestConfig  
-    ): OperationResponse<Paths.CreateInvoice.Responses.$200>
+    ): OperationResponse<Paths.PostInvoices.Responses.$200>
   }
   ['/invoices/{id}']: {
     /**
-     * findInvoice - Find an invoice by ID
-     */
-    'get'(
-      parameters?: Parameters<UnknownParamsObject> | null,
-      data?: any,
-      config?: AxiosRequestConfig  
-    ): OperationResponse<Paths.FindInvoice.Responses.$200>
-    /**
-     * patchInvoice - Update an invoice
-     */
-    'patch'(
-      parameters?: Parameters<UnknownParamsObject> | null,
-      data?: any,
-      config?: AxiosRequestConfig  
-    ): OperationResponse<Paths.PatchInvoice.Responses.$200>
-    /**
-     * updateInvoice - Update an invoice
+     * putInvoice - update an invoice
      */
     'put'(
-      parameters?: Parameters<UnknownParamsObject> | null,
+      parameters?: Parameters<Paths.PutInvoice.PathParameters & Paths.PutInvoice.HeaderParameters> | null,
+      data?: Paths.PutInvoice.RequestBody,
+      config?: AxiosRequestConfig  
+    ): OperationResponse<Paths.PutInvoice.Responses.$200>
+    /**
+     * getInvoice - get an invoice
+     */
+    'get'(
+      parameters?: Parameters<Paths.GetInvoice.PathParameters & Paths.GetInvoice.HeaderParameters> | null,
       data?: any,
       config?: AxiosRequestConfig  
-    ): OperationResponse<Paths.UpdateInvoice.Responses.$200>
+    ): OperationResponse<Paths.GetInvoice.Responses.$200>
     /**
-     * deleteInvoice - Delete an invoice
+     * deleteInvoice - delete an invoice
      */
     'delete'(
-      parameters?: Parameters<UnknownParamsObject> | null,
+      parameters?: Parameters<Paths.DeleteInvoice.PathParameters & Paths.DeleteInvoice.HeaderParameters> | null,
       data?: any,
       config?: AxiosRequestConfig  
     ): OperationResponse<any>
-  }
-  ['/customers/search']: {
-    /**
-     * searchCustomers - Search for a customer in all the fields
-     */
-    'get'(
-      parameters?: Parameters<UnknownParamsObject> | null,
-      data?: any,
-      config?: AxiosRequestConfig  
-    ): OperationResponse<Paths.SearchCustomers.Responses.$200>
-  }
-  ['/products/search']: {
-    /**
-     * searchProducts - Search for a product in all the fields
-     */
-    'get'(
-      parameters?: Parameters<UnknownParamsObject> | null,
-      data?: any,
-      config?: AxiosRequestConfig  
-    ): OperationResponse<Paths.SearchProducts.Responses.$200>
   }
 }
 
