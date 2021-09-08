@@ -109,12 +109,6 @@ paths:
           schema:
             type: string
           example: '[{"field":"customer_id","operator":"eq","value":5}]'
-        - name: sort
-          description: Sort order columns, separated by commas (click "Try it out" to view an example)
-          in: query
-          schema:
-            type: string
-          example: '+date,-amount'
       responses:
         '200':
           description: the matching invoices

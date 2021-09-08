@@ -294,14 +294,12 @@ declare namespace Paths {
       export type Filter = string;
       export type Page = number;
       export type PerPage = number;
-      export type Sort = string;
       export type XSESSION = string;
     }
     export interface QueryParameters {
       page?: Parameters.Page;
       per_page?: Parameters.PerPage;
       filter?: Parameters.Filter;
-      sort?: Parameters.Sort;
     }
     namespace Responses {
       export interface $200 {
