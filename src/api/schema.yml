@@ -19,7 +19,6 @@ paths:
           in: header
           schema:
             type: string
-          required: true
         - name: query
           in: query
           schema:
@@ -58,7 +57,6 @@ paths:
           in: header
           schema:
             type: string
-          required: true
         - name: query
           in: query
           schema:
@@ -97,7 +95,6 @@ paths:
           in: header
           schema:
             type: string
-          required: true
         - name: page
           in: query
           schema:
@@ -131,7 +128,14 @@ paths:
                   invoices:
                     type: array
                     items:
-                      $ref: '#/components/schemas/Invoice'
+                      allOf:
+                        - type: object
+                          $ref: '#/components/schemas/Invoice'
+                        - type: object
+                          properties:
+                            customer:
+                              type: object
+                              $ref: '#/components/schemas/Customer'
                 required:
                   - pagination
                   - invoices
@@ -143,7 +147,6 @@ paths:
           in: header
           schema:
             type: string
-          required: true
       requestBody:
         content:
           application/json:
@@ -168,7 +171,6 @@ paths:
           in: header
           schema:
             type: string
-          required: true
         - name: id
           in: path
           required: true
@@ -197,7 +199,6 @@ paths:
           in: header
           schema:
             type: string
-          required: true
         - name: id
           in: path
           required: true
@@ -218,7 +219,6 @@ paths:
           in: header
           schema:
             type: string
-          required: true
         - name: id
           in: path
           required: true

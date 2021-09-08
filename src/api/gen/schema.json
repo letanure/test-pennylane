@@ -29,8 +29,7 @@
             "in": "header",
             "schema": {
               "type": "string"
-            },
-            "required": true
+            }
           },
           {
             "name": "query",
@@ -93,8 +92,7 @@
             "in": "header",
             "schema": {
               "type": "string"
-            },
-            "required": true
+            }
           },
           {
             "name": "query",
@@ -157,8 +155,7 @@
             "in": "header",
             "schema": {
               "type": "string"
-            },
-            "required": true
+            }
           },
           {
             "name": "page",
@@ -207,7 +204,21 @@
                     "invoices": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Invoice"
+                        "allOf": [
+                          {
+                            "type": "object",
+                            "$ref": "#/components/schemas/Invoice"
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "customer": {
+                                "type": "object",
+                                "$ref": "#/components/schemas/Customer"
+                              }
+                            }
+                          }
+                        ]
                       }
                     }
                   },
@@ -230,8 +241,7 @@
             "in": "header",
             "schema": {
               "type": "string"
-            },
-            "required": true
+            }
           }
         ],
         "requestBody": {
@@ -272,8 +282,7 @@
             "in": "header",
             "schema": {
               "type": "string"
-            },
-            "required": true
+            }
           },
           {
             "name": "id",
@@ -320,8 +329,7 @@
             "in": "header",
             "schema": {
               "type": "string"
-            },
-            "required": true
+            }
           },
           {
             "name": "id",
@@ -354,8 +362,7 @@
             "in": "header",
             "schema": {
               "type": "string"
-            },
-            "required": true
+            }
           },
           {
             "name": "id",
