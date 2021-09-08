@@ -261,7 +261,7 @@ declare namespace Components {
 declare namespace Paths {
   namespace DeleteInvoice {
     export interface HeaderParameters {
-      "X-SESSION": Parameters.XSESSION;
+      "X-SESSION"?: Parameters.XSESSION;
     }
     namespace Parameters {
       export type Id = number;
@@ -273,7 +273,7 @@ declare namespace Paths {
   }
   namespace GetInvoice {
     export interface HeaderParameters {
-      "X-SESSION": Parameters.XSESSION;
+      "X-SESSION"?: Parameters.XSESSION;
     }
     namespace Parameters {
       export type Id = number;
@@ -288,7 +288,7 @@ declare namespace Paths {
   }
   namespace GetInvoices {
     export interface HeaderParameters {
-      "X-SESSION": Parameters.XSESSION;
+      "X-SESSION"?: Parameters.XSESSION;
     }
     namespace Parameters {
       export type Filter = string;
@@ -306,13 +306,56 @@ declare namespace Paths {
     namespace Responses {
       export interface $200 {
         pagination: Components.Schemas.Pagination;
-        invoices: Components.Schemas.Invoice[];
+        invoices: {
+          /**
+           * example:
+           * 5785
+           */
+          id: number;
+          /**
+           * example:
+           * 6773
+           */
+          customer_id: number | null;
+          /**
+           * example:
+           * false
+           */
+          finalized: boolean;
+          /**
+           * example:
+           * true
+           */
+          paid: boolean;
+          /**
+           * example:
+           * 2021-02-03
+           */
+          date: string | null;
+          /**
+           * example:
+           * 2021-03-05
+           */
+          deadline: string | null;
+          /**
+           * example:
+           * 120.00
+           */
+          total: string | null;
+          /**
+           * example:
+           * 20.00
+           */
+          tax: string | null;
+          invoice_lines: Components.Schemas.InvoiceLine[];
+          customer?: Components.Schemas.Customer;
+        }[];
       }
     }
   }
   namespace GetSearchCustomers {
     export interface HeaderParameters {
-      "X-SESSION": Parameters.XSESSION;
+      "X-SESSION"?: Parameters.XSESSION;
     }
     namespace Parameters {
       export type Page = number;
@@ -334,7 +377,7 @@ declare namespace Paths {
   }
   namespace GetSearchProducts {
     export interface HeaderParameters {
-      "X-SESSION": Parameters.XSESSION;
+      "X-SESSION"?: Parameters.XSESSION;
     }
     namespace Parameters {
       export type Page = number;
@@ -356,7 +399,7 @@ declare namespace Paths {
   }
   namespace PostInvoices {
     export interface HeaderParameters {
-      "X-SESSION": Parameters.XSESSION;
+      "X-SESSION"?: Parameters.XSESSION;
     }
     namespace Parameters {
       export type XSESSION = string;
@@ -370,7 +413,7 @@ declare namespace Paths {
   }
   namespace PutInvoice {
     export interface HeaderParameters {
-      "X-SESSION": Parameters.XSESSION;
+      "X-SESSION"?: Parameters.XSESSION;
     }
     namespace Parameters {
       export type Id = number;

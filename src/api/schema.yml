@@ -133,7 +133,7 @@ paths:
                           $ref: '#/components/schemas/Invoice'
                         - type: object
                           properties:
-                            - customer:
+                            customer:
                               type: object
                               $ref: '#/components/schemas/Customer'
                 required:
