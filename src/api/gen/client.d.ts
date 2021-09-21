@@ -96,6 +96,34 @@ declare namespace Components {
       tax: string | null;
       invoice_lines: InvoiceLine[];
     }
+    export interface InvoiceCreatePayload {
+      /**
+       * example:
+       * 6773
+       */
+      customer_id: number;
+      /**
+       * example:
+       * false
+       */
+      finalized?: boolean;
+      /**
+       * example:
+       * true
+       */
+      paid?: boolean;
+      /**
+       * example:
+       * 2021-02-03
+       */
+      date?: string | null;
+      /**
+       * example:
+       * 2021-03-05
+       */
+      deadline?: string | null;
+      invoice_lines_attributes?: InvoiceLineCreatePayload[];
+    }
     export interface InvoiceLine {
       /**
        * example:
@@ -136,13 +164,46 @@ declare namespace Components {
       tax: string;
       product: Product;
     }
-    export interface InvoiceLineRequestPayload {
+    export interface InvoiceLineCreatePayload {
       /**
+       * example:
+       * 67
+       */
+      product_id: number;
+      /**
+       * example:
+       * 1
+       */
+      quantity?: number;
+      /**
+       * example:
+       * Tesla Model S with Pennylane logo
+       */
+      label?: string;
+      unit?: Unit;
+      vat_rate?: VatRate;
+      /**
+       * example:
+       * 120.00
+       */
+      price?: string | number;
+      /**
+       * example:
+       * 20.00
+       */
+      tax?: string | number;
+    }
+    export interface InvoiceLineUpdatePayload {
+      /**
+       * If this parameter is set, the identified invoice_line will be updated (or deleted if _destroy is set to true) If this parameter is not set, a new invoice_line will be created
+       * 
        * example:
        * 45
        */
       id?: number;
       /**
+       * If this parameter is set to true, and if "id" is set, the identified invoice_line will be deleted
+       * 
        * example:
        * false
        */
@@ -175,7 +236,12 @@ declare namespace Components {
        */
       tax?: string | number;
     }
-    export interface InvoiceRequestPayload {
+    export interface InvoiceUpdatePayload {
+      /**
+       * example:
+       * 6757
+       */
+      id: number;
       /**
        * example:
        * 6773
@@ -201,7 +267,7 @@ declare namespace Components {
        * 2021-03-05
        */
       deadline?: string | null;
-      invoice_lines_attributes?: InvoiceLineRequestPayload[];
+      invoice_lines_attributes?: InvoiceLineUpdatePayload[];
     }
     export interface Pagination {
       /**
@@ -403,7 +469,7 @@ declare namespace Paths {
       export type XSESSION = string;
     }
     export interface RequestBody {
-      invoice?: Components.Schemas.InvoiceRequestPayload;
+      invoice?: Components.Schemas.InvoiceCreatePayload;
     }
     namespace Responses {
       export type $200 = Components.Schemas.Invoice;
@@ -421,7 +487,7 @@ declare namespace Paths {
       id: Parameters.Id;
     }
     export interface RequestBody {
-      invoice?: Components.Schemas.InvoiceRequestPayload;
+      invoice?: Components.Schemas.InvoiceUpdatePayload;
     }
     namespace Responses {
       export type $200 = Components.Schemas.Invoice;
