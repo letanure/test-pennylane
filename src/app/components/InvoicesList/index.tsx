@@ -17,7 +17,7 @@ const InvoicesList = (): React.ReactElement => {
   }, [fetchInvoices]);
 
   return (
-    <table>
+    <table className="table table-bordered table-striped">
       <thead>
         <tr>
           <th>Id</th>
