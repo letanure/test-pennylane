@@ -20,7 +20,7 @@ We expect you to identify two advanced features which could be useful for an inv
 
 ## Deliverable
 
-- source code on a private GitHub repository (please invite @quentindemetz @tdeo @rpechayr) or in a zip file
+- source code on a private GitHub repository (please invite @quentindemetz @tdeo @rpechayr @soyoh @alex-min @karineHbt @Juleffel)
 - the application hosted on a personal server or on Heroku.
 
 You MUST use:
