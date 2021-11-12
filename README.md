@@ -21,7 +21,7 @@ We expect you to identify two advanced features which could be useful for an inv
 ## Deliverable
 
 - source code on a private GitHub repository (please invite @quentindemetz @tdeo @rpechayr @soyoh @alex-min @karineHbt @Juleffel)
-- the application hosted on a personal server or on Heroku.
+- the application deployed using your favorite solution (vercel, netlify, heroku, personal server, etc. )
 
 You MUST use:
 - bootstrap as UI library
