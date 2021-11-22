@@ -1,6 +1,9 @@
 import { useApi } from 'api'
 import { Invoice } from 'types'
 import { useEffect, useCallback, useState } from 'react'
+import { Link } from 'react-router-dom'
+
+import { getRoutePath } from 'routes'
 
 const InvoicesList = (): React.ReactElement => {
   const api = useApi()
@@ -29,6 +32,7 @@ const InvoicesList = (): React.ReactElement => {
           <th>Paid</th>
           <th>Date</th>
           <th>Deadline</th>
+          <th>Action</th>
         </tr>
       </thead>
       <tbody>
@@ -48,6 +52,11 @@ const InvoicesList = (): React.ReactElement => {
             <td>{invoice.paid ? 'Yes' : 'No'}</td>
             <td>{invoice.date}</td>
             <td>{invoice.deadline}</td>
+            <td>
+              <Link to={getRoutePath('invoiceItem', { id: invoice.id })}>
+                Edit
+              </Link>
+            </td>
           </tr>
         ))}
       </tbody>
