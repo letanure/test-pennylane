@@ -1,15 +1,14 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import App from './App'
-import { ApiProvider } from './api'
 import 'bootstrap/dist/css/bootstrap.min.css'
+
+import { ApiProvider } from './api'
+import env from './constants/env'
 
 ReactDOM.render(
   <React.StrictMode>
-    <ApiProvider
-      url="https://jean-test-api.herokuapp.com/"
-      token="" // set your api token here
-    >
+    <ApiProvider url={env.API_URL} token={env.API_TOKEN}>
       <App />
     </ApiProvider>
   </React.StrictMode>,
