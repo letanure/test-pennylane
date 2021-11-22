@@ -1,15 +1,17 @@
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
-import InvoicesList from './components/Invoice/InvoicesList'
-import InvoiceShow from './components/Invoice/InvoiceShow'
+import { routes } from './routes'
 
 function App() {
   return (
     <div className="px-5">
       <Router>
         <Switch>
-          <Route path="/invoice/:id" component={InvoiceShow} />
-          <Route path="/" component={InvoicesList} />
+          {routes.map(({ path, component: Component }) => (
+            <Route key={path} path={path}>
+              <Component />
+            </Route>
+          ))}
         </Switch>
       </Router>
     </div>
