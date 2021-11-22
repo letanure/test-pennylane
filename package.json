@@ -45,7 +45,9 @@
   "scripts": {
     "start": "HOST=localhost react-scripts start",
     "build": "react-scripts build",
+    "build:ci": "CI=true react-scripts build",
     "test": "react-scripts test",
+    "test:ci": "CI=true npm test",
     "eject": "react-scripts eject",
     "eject_ts": "./bin/eject_ts",
     "openapi:gen": "yarn -s typegen src/api/schema.yml > src/api/gen/client.d.ts && yarn openapi:convert",
