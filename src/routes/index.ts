@@ -1,6 +1,6 @@
 import React from 'react'
 import InvoicesList from 'components/Invoice/InvoicesList'
-import InvoiceShow from 'components/Invoice/InvoiceShow'
+import InvoiceUpdate from 'components/Invoice/InvoiceUpdate'
 
 type Route = {
   name: string
@@ -12,9 +12,9 @@ type Routes = Route[]
 
 const routes: Routes = [
   {
-    name: 'invoiceItem',
+    name: 'InvoiceUpdate',
     path: '/invoice/:id',
-    component: InvoiceShow,
+    component: InvoiceUpdate,
   },
   {
     name: 'invoiceList',

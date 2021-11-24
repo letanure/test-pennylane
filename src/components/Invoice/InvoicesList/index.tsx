@@ -53,7 +53,7 @@ const InvoicesList = (): React.ReactElement => {
             <td>{invoice.date}</td>
             <td>{invoice.deadline}</td>
             <td>
-              <Link to={getRoutePath('invoiceItem', { id: invoice.id })}>
+              <Link to={getRoutePath('InvoiceUpdate', { id: invoice.id })}>
                 Edit
               </Link>
             </td>
