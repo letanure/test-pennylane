@@ -1,6 +1,6 @@
 {
   "name": "jean_test_front",
-  "version": "0.1.0",
+  "version": "0.0.0-development",
   "private": true,
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.32",
@@ -51,7 +51,8 @@
     "eject": "react-scripts eject",
     "eject_ts": "./bin/eject_ts",
     "openapi:gen": "yarn -s typegen src/api/schema.yml > src/api/gen/client.d.ts && yarn openapi:convert",
-    "openapi:convert": "npx @redocly/openapi-cli bundle ./src/api/schema.yml -o ./src/api/gen/schema.json --format json"
+    "openapi:convert": "npx @redocly/openapi-cli bundle ./src/api/schema.yml -o ./src/api/gen/schema.json --format json",
+    "semantic-release": "semantic-release"
   },
   "eslintConfig": {
     "extends": [
@@ -76,6 +77,14 @@
     "@commitlint/config-conventional": "^15.0.0",
     "@types/react-router-dom": "^5.3.2",
     "husky": "^7.0.4",
-    "prettier": "2.4.1"
+    "prettier": "2.4.1",
+    "semantic-release": "^18.0.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/letanure/test-pennylane.git"
+  },
+  "publishConfig": {
+    "access": "restricted"
   }
 }
