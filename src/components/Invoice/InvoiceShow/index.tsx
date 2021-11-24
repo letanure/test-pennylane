@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react'
 import { useParams } from 'react-router'
 
-import { useApi } from 'api'
 import { Invoice } from 'types'
+import { useApi } from 'api'
+import InvoiceForm from 'components/Invoice/InvoiceForm'
+import { ReturnValues } from 'components/ui/FormRender'
 
 const InvoiceShow = () => {
   const { id } = useParams<{ id: string }>()
@@ -15,10 +17,17 @@ const InvoiceShow = () => {
     })
   }, [api, id])
 
+  const handleSubmit = (data: ReturnValues) => {
+    const id = data.id as number
+    if (!!id) {
+      api.putInvoice(id, data).then(({ data }) => {
+        setInvoice(data)
+      })
+    }
+  }
+
   return (
-    <div>
-      <pre>{JSON.stringify(invoice ?? '', null, 2)}</pre>
-    </div>
+    <>{!!invoice && <InvoiceForm data={invoice} onSubmit={handleSubmit} />}</>
   )
 }
 
