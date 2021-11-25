@@ -1,6 +1,7 @@
 import React from 'react'
 import InvoicesList from 'components/Invoice/InvoicesList'
 import InvoiceUpdate from 'components/Invoice/InvoiceUpdate'
+import InvoiceCreate from 'components/Invoice/InvoiceCreate'
 
 type Route = {
   name: string
@@ -18,6 +19,11 @@ const routes: Routes = [
     component: InvoiceUpdate,
   },
   {
+    name: 'Invoicecreate',
+    path: '/invoice/create',
+    component: InvoiceCreate,
+  },
+  {
     name: 'InvoiceList',
     path: '/invoice/list',
     component: InvoicesList,
@@ -25,7 +31,6 @@ const routes: Routes = [
   {
     name: 'home',
     path: '/',
-    // component: InvoicesList,
     redirect: 'InvoiceList',
   },
 ]

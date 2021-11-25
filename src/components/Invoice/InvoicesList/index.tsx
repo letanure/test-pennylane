@@ -4,6 +4,7 @@ import { useEffect, useCallback, useState } from 'react'
 import { Link } from 'react-router-dom'
 
 import { getRoutePath } from 'routes'
+import { Button } from 'react-bootstrap'
 
 const InvoicesList = (): React.ReactElement => {
   const api = useApi()
@@ -20,47 +21,52 @@ const InvoicesList = (): React.ReactElement => {
   }, [fetchInvoices])
 
   return (
-    <table className="table table-bordered table-striped">
-      <thead>
-        <tr>
-          <th>Id</th>
-          <th>Customer</th>
-          <th>Address</th>
-          <th>Total</th>
-          <th>Tax</th>
-          <th>Finalized</th>
-          <th>Paid</th>
-          <th>Date</th>
-          <th>Deadline</th>
-          <th>Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        {invoicesList.map((invoice) => (
-          <tr key={invoice.id}>
-            <td>{invoice.id}</td>
-            <td>
-              {invoice.customer?.first_name} {invoice.customer?.last_name}
-            </td>
-            <td>
-              {invoice.customer?.address}, {invoice.customer?.zip_code}{' '}
-              {invoice.customer?.city}
-            </td>
-            <td>{invoice.total}</td>
-            <td>{invoice.tax}</td>
-            <td>{invoice.finalized ? 'Yes' : 'No'}</td>
-            <td>{invoice.paid ? 'Yes' : 'No'}</td>
-            <td>{invoice.date}</td>
-            <td>{invoice.deadline}</td>
-            <td>
-              <Link to={getRoutePath('InvoiceUpdate', { id: invoice.id })}>
-                Edit
-              </Link>
-            </td>
+    <>
+      <table className="table table-bordered table-striped">
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Customer</th>
+            <th>Address</th>
+            <th>Total</th>
+            <th>Tax</th>
+            <th>Finalized</th>
+            <th>Paid</th>
+            <th>Date</th>
+            <th>Deadline</th>
+            <th>Action</th>
           </tr>
-        ))}
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          {invoicesList.map((invoice) => (
+            <tr key={invoice.id}>
+              <td>{invoice.id}</td>
+              <td>
+                {invoice.customer?.first_name} {invoice.customer?.last_name}
+              </td>
+              <td>
+                {invoice.customer?.address}, {invoice.customer?.zip_code}{' '}
+                {invoice.customer?.city}
+              </td>
+              <td>{invoice.total}</td>
+              <td>{invoice.tax}</td>
+              <td>{invoice.finalized ? 'Yes' : 'No'}</td>
+              <td>{invoice.paid ? 'Yes' : 'No'}</td>
+              <td>{invoice.date}</td>
+              <td>{invoice.deadline}</td>
+              <td>
+                <Link to={getRoutePath('InvoiceUpdate', { id: invoice.id })}>
+                  Edit
+                </Link>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <Link to={getRoutePath('InvoiceCreate')}>
+        <Button>Create new invoice</Button>
+      </Link>
+    </>
   )
 }
 
