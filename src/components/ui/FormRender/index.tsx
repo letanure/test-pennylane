@@ -4,6 +4,8 @@ import FormGroup from 'react-bootstrap/FormGroup'
 import FormLabel from 'react-bootstrap/FormLabel'
 import Button from 'react-bootstrap/Button'
 
+import CustomerAutocomplete from 'components/Customer/CustomerAutocomplete'
+
 type formOption = {
   label: string
   value: string | boolean | number
@@ -18,7 +20,7 @@ type formItem = {
   placeholder: string
   readOnly?: boolean
   required: boolean
-  type: 'text' | 'number' | 'select' | 'checkbox' | 'radio'
+  type: 'text' | 'number' | 'select' | 'CustomerAutocomplete'
   value: string | boolean | number
   valueType?: 'string' | 'number' | 'boolean'
 }
@@ -68,7 +70,14 @@ const FormRender = ({ config, values, onSubmit }: FormProps) => {
           setSubmitting(false)
         }}
       >
-        {({ isSubmitting, handleSubmit, handleChange, values, touched }) => (
+        {({
+          isSubmitting,
+          handleSubmit,
+          handleChange,
+          setFieldValue,
+          values,
+          touched,
+        }) => (
           <Form onSubmit={handleSubmit}>
             {config.map(
               ({
@@ -117,6 +126,14 @@ const FormRender = ({ config, values, onSubmit }: FormProps) => {
                                 </option>
                               ))}
                           </FormControl>
+                        )}
+                        {type === 'CustomerAutocomplete' && (
+                          <CustomerAutocomplete
+                            onChange={(customer: any) =>
+                              setFieldValue(name, customer.id)
+                            }
+                            value={field.value}
+                          />
                         )}
                       </FormGroup>
                     )}
