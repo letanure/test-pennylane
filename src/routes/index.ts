@@ -19,7 +19,7 @@ const routes: Routes = [
     component: InvoiceUpdate,
   },
   {
-    name: 'Invoicecreate',
+    name: 'InvoiceCreate',
     path: '/invoice/create',
     component: InvoiceCreate,
   },
