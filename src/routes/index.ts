@@ -1,11 +1,13 @@
 import React from 'react'
 import InvoicesList from 'components/Invoice/InvoicesList'
 import InvoiceUpdate from 'components/Invoice/InvoiceUpdate'
+import InvoiceCreate from 'components/Invoice/InvoiceCreate'
 
 type Route = {
   name: string
   path: string
-  component: React.ComponentType<any>
+  component?: React.ComponentType<any>
+  redirect?: string
 }
 
 type Routes = Route[]
@@ -13,13 +15,23 @@ type Routes = Route[]
 const routes: Routes = [
   {
     name: 'InvoiceUpdate',
-    path: '/invoice/:id',
+    path: '/invoice/update/:id',
     component: InvoiceUpdate,
   },
   {
-    name: 'invoiceList',
-    path: '/',
+    name: 'InvoiceCreate',
+    path: '/invoice/create',
+    component: InvoiceCreate,
+  },
+  {
+    name: 'InvoiceList',
+    path: '/invoice/list',
     component: InvoicesList,
+  },
+  {
+    name: 'home',
+    path: '/',
+    redirect: 'InvoiceList',
   },
 ]
 type getParams = {

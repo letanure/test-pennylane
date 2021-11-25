@@ -1,15 +1,24 @@
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from 'react-router-dom'
 
-import { routes } from './routes'
+import { routes, getRoutePath } from './routes'
 
 function App() {
   return (
     <div className="px-5">
       <Router>
         <Switch>
-          {routes.map(({ path, component: Component }) => (
+          {routes.map(({ path, component: Component, redirect }) => (
             <Route key={path} path={path}>
-              <Component />
+              {!!redirect ? (
+                <Redirect to={getRoutePath(redirect)} />
+              ) : (
+                !!Component && <Component />
+              )}
             </Route>
           ))}
         </Switch>

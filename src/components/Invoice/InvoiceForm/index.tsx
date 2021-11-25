@@ -14,11 +14,12 @@ const formConfig: FormConfig = [
   {
     name: 'customer_id',
     label: 'customer ID',
-    type: 'number',
+    type: 'CustomerAutocomplete',
     placeholder: '',
     required: true,
     value: '',
     readOnly: true,
+    valueType: 'number',
   },
   {
     name: 'finalized',
