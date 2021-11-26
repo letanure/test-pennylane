@@ -26,6 +26,11 @@ const InvoicesList = (): React.ReactElement => {
     fetchInvoices()
   }, [fetchInvoices])
 
+  const handleDeleteClick = async (id: number) => {
+    await api.deleteInvoice(id)
+    fetchInvoices()
+  }
+
   return (
     <>
       <table className="table table-bordered table-striped">
@@ -62,8 +67,17 @@ const InvoicesList = (): React.ReactElement => {
               <td>{invoice.deadline}</td>
               <td>
                 <Link to={getRoutePath('InvoiceUpdate', { id: invoice.id })}>
-                  Edit
+                  <Button variant="outline-primary" size="sm">
+                    Edit
+                  </Button>
                 </Link>
+                <Button
+                  variant="outline-danger"
+                  size="sm"
+                  onClick={() => handleDeleteClick(invoice.id)}
+                >
+                  Delete
+                </Button>
               </td>
             </tr>
           ))}
