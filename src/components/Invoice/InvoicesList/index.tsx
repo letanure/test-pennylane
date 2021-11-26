@@ -5,16 +5,22 @@ import { Link } from 'react-router-dom'
 
 import { getRoutePath } from 'routes'
 import { Button } from 'react-bootstrap'
+import { Pagination } from 'react-bootstrap'
 
 const InvoicesList = (): React.ReactElement => {
   const api = useApi()
 
   const [invoicesList, setInvoicesList] = useState<Invoice[]>([])
+  const [currentPage, setCurrentPage] = useState(1)
+  const [pagination, setPagination] = useState<any>()
 
   const fetchInvoices = useCallback(async () => {
-    const { data } = await api.getInvoices()
+    const { data } = await api.getInvoices({
+      page: currentPage,
+    })
+    setPagination(data.pagination)
     setInvoicesList(data.invoices)
-  }, [api])
+  }, [api, currentPage])
 
   useEffect(() => {
     fetchInvoices()
@@ -63,6 +69,19 @@ const InvoicesList = (): React.ReactElement => {
           ))}
         </tbody>
       </table>
+      {pagination && (
+        <Pagination>
+          {[...Array(pagination.total_pages)].map((el, ind) => (
+            <Pagination.Item
+              key={ind}
+              active={pagination.page === ind + 1}
+              onClick={() => setCurrentPage(ind + 1)}
+            >
+              {ind + 1}
+            </Pagination.Item>
+          ))}
+        </Pagination>
+      )}
       <Link to={getRoutePath('InvoiceCreate')}>
         <Button>Create new invoice</Button>
       </Link>
