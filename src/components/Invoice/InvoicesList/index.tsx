@@ -31,58 +31,87 @@ const InvoicesList = (): React.ReactElement => {
     fetchInvoices()
   }
 
+  const columns = [
+    {
+      header: 'Id',
+      value: (invoice: Invoice) => invoice.id,
+    },
+    {
+      header: 'Customer',
+      value: (invoice: Invoice) =>
+        `${invoice.customer?.first_name} ${invoice.customer?.last_name}`,
+    },
+    {
+      header: 'Address',
+      value: (invoice: Invoice) =>
+        `${invoice.customer?.address}, ${invoice.customer?.zip_code}, ${invoice.customer?.city}`,
+    },
+    {
+      header: 'Total',
+      value: (invoice: Invoice) => invoice.total,
+    },
+    {
+      header: 'Tax',
+      value: (invoice: Invoice) => invoice.tax,
+    },
+    {
+      header: 'Finalized',
+      value: (invoice: Invoice) => (invoice.finalized ? 'Yes' : 'No'),
+    },
+    {
+      header: 'Paid',
+      value: (invoice: Invoice) => (invoice.paid ? 'Yes' : 'No'),
+    },
+    {
+      header: 'Date',
+      value: (invoice: Invoice) => invoice.date,
+    },
+    {
+      header: 'Deadline',
+      value: (invoice: Invoice) => invoice.deadline,
+    },
+    {
+      header: 'Actions',
+      value: (invoice: Invoice) => (
+        <>
+          <Link to={getRoutePath('InvoiceUpdate', { id: invoice.id })}>
+            <Button variant="outline-primary" size="sm">
+              Edit
+            </Button>
+          </Link>
+          <Button
+            variant="outline-danger"
+            size="sm"
+            onClick={() => handleDeleteClick(invoice.id)}
+          >
+            Delete
+          </Button>
+        </>
+      ),
+    },
+  ]
+
   return (
     <>
       <table className="table table-bordered table-striped">
         <thead>
           <tr>
-            <th>Id</th>
-            <th>Customer</th>
-            <th>Address</th>
-            <th>Total</th>
-            <th>Tax</th>
-            <th>Finalized</th>
-            <th>Paid</th>
-            <th>Date</th>
-            <th>Deadline</th>
-            <th>Action</th>
+            {columns.map((column) => (
+              <th key={column.header}>{column.header}</th>
+            ))}
           </tr>
         </thead>
         <tbody>
           {invoicesList.map((invoice) => (
             <tr key={invoice.id}>
-              <td>{invoice.id}</td>
-              <td>
-                {invoice.customer?.first_name} {invoice.customer?.last_name}
-              </td>
-              <td>
-                {invoice.customer?.address}, {invoice.customer?.zip_code}{' '}
-                {invoice.customer?.city}
-              </td>
-              <td>{invoice.total}</td>
-              <td>{invoice.tax}</td>
-              <td>{invoice.finalized ? 'Yes' : 'No'}</td>
-              <td>{invoice.paid ? 'Yes' : 'No'}</td>
-              <td>{invoice.date}</td>
-              <td>{invoice.deadline}</td>
-              <td>
-                <Link to={getRoutePath('InvoiceUpdate', { id: invoice.id })}>
-                  <Button variant="outline-primary" size="sm">
-                    Edit
-                  </Button>
-                </Link>
-                <Button
-                  variant="outline-danger"
-                  size="sm"
-                  onClick={() => handleDeleteClick(invoice.id)}
-                >
-                  Delete
-                </Button>
-              </td>
+              {columns.map((column, index) => (
+                <td key={invoice.id + index}>{column.value(invoice)}</td>
+              ))}
             </tr>
           ))}
         </tbody>
       </table>
+
       {pagination && (
         <Pagination>
           {[...Array(pagination.total_pages)].map((el, ind) => (
