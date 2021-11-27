@@ -64,12 +64,18 @@ const InvoicesList = (): React.ReactElement => {
     {
       nameKey: 'date',
       visible: true,
-      value: (invoice: Invoice) => invoice.date,
+      value: (invoice: Invoice) =>
+        t('format.intlDateTime', {
+          val: new Date(invoice.date as string),
+        }),
     },
     {
       nameKey: 'deadline',
       visible: true,
-      value: (invoice: Invoice) => invoice.deadline,
+      value: (invoice: Invoice) =>
+        t('format.intlDateTime', {
+          val: new Date(invoice.deadline as string),
+        }),
     },
     {
       nameKey: 'actions',
