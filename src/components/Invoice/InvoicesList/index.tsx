@@ -5,12 +5,13 @@ import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSquare, faCheckSquare } from '@fortawesome/free-solid-svg-icons'
 import { Button, Dropdown } from 'react-bootstrap'
+import { useTranslation } from 'react-i18next'
 
 import { getRoutePath } from 'routes'
 import { Pagination } from 'react-bootstrap'
 
 type ColumnConfig = {
-  header: string
+  nameKey: string
   visible: boolean
   value: (invoice: Invoice) => string | number | null | ReactNode
   alwaysVisible?: boolean
@@ -18,63 +19,66 @@ type ColumnConfig = {
 type ColumnsConfig = ColumnConfig[]
 
 const InvoicesList = (): React.ReactElement => {
+  const { t } = useTranslation()
   const columns: ColumnsConfig = [
     {
-      header: 'Id',
+      nameKey: 'id',
       visible: true,
       value: (invoice: Invoice) => invoice.id,
     },
     {
-      header: 'Customer',
+      nameKey: 'customer',
       visible: true,
       value: (invoice: Invoice) =>
         `${invoice.customer?.first_name} ${invoice.customer?.last_name}`,
     },
     {
-      header: 'Address',
+      nameKey: 'address',
       visible: false,
       value: (invoice: Invoice) =>
         `${invoice.customer?.address}, ${invoice.customer?.zip_code}, ${invoice.customer?.city}`,
     },
     {
-      header: 'Total',
+      nameKey: 'total',
       visible: true,
       value: (invoice: Invoice) => invoice.total,
     },
     {
-      header: 'Tax',
+      nameKey: 'tax',
       visible: true,
       value: (invoice: Invoice) => invoice.tax,
     },
     {
-      header: 'Finalized',
+      nameKey: 'finalized',
       visible: true,
-      value: (invoice: Invoice) => (invoice.finalized ? 'Yes' : 'No'),
+      value: (invoice: Invoice) =>
+        invoice.finalized ? t('general.yes') : t('general.no'),
     },
     {
-      header: 'Paid',
+      nameKey: 'paid',
       visible: true,
-      value: (invoice: Invoice) => (invoice.paid ? 'Yes' : 'No'),
+      value: (invoice: Invoice) =>
+        invoice.paid ? t('general.yes') : t('general.no'),
     },
     {
-      header: 'Date',
+      nameKey: 'date',
       visible: true,
       value: (invoice: Invoice) => invoice.date,
     },
     {
-      header: 'Deadline',
+      nameKey: 'deadline',
       visible: true,
       value: (invoice: Invoice) => invoice.deadline,
     },
     {
-      header: 'Actions',
+      nameKey: 'actions',
       visible: true,
       alwaysVisible: true,
       value: (invoice: Invoice) => (
         <>
           <Link to={getRoutePath('InvoiceUpdate', { id: invoice.id })}>
             <Button variant="outline-primary" size="sm">
-              Edit
+              {t('general.edit')}
             </Button>
           </Link>
           <Button
@@ -82,7 +86,7 @@ const InvoicesList = (): React.ReactElement => {
             size="sm"
             onClick={() => handleDeleteClick(invoice.id)}
           >
-            Delete
+            {t('general.delete')}
           </Button>
         </>
       ),
@@ -95,7 +99,7 @@ const InvoicesList = (): React.ReactElement => {
   const [currentPage, setCurrentPage] = useState(1)
   const [pagination, setPagination] = useState<any>()
   const [visibleColumns, setVisibleColumns] = useState<string[]>(
-    columns.filter((column) => column.visible).map((column) => column.header)
+    columns.filter((column) => column.visible).map((column) => column.nameKey)
   )
 
   const fetchInvoices = useCallback(async () => {
@@ -115,47 +119,50 @@ const InvoicesList = (): React.ReactElement => {
     fetchInvoices()
   }
 
-  const handleColumnVisibilityChange = (header: string) => {
-    const columnIsVisible = visibleColumns.includes(header)
+  const handleColumnVisibilityChange = (nameKey: string) => {
+    const columnIsVisible = visibleColumns.includes(nameKey)
     columnIsVisible
-      ? setVisibleColumns(visibleColumns.filter((column) => column !== header))
-      : setVisibleColumns([...visibleColumns, header])
+      ? setVisibleColumns(visibleColumns.filter((column) => column !== nameKey))
+      : setVisibleColumns([...visibleColumns, nameKey])
   }
 
   return (
     <>
       <Dropdown autoClose="outside">
-        <Dropdown.Toggle variant="secondary">Visible columns</Dropdown.Toggle>
+        <Dropdown.Toggle variant="secondary">
+          {t('table.visibleColumns')}
+        </Dropdown.Toggle>
         <Dropdown.Menu>
           {columns
             .filter((column) => !column.alwaysVisible)
             .map((column) => (
               <Dropdown.Item
-                key={column.header}
+                key={column.nameKey}
                 onClick={() => {
-                  handleColumnVisibilityChange(column.header)
+                  handleColumnVisibilityChange(column.nameKey)
                 }}
               >
                 <FontAwesomeIcon
                   icon={
-                    visibleColumns.includes(column.header)
+                    visibleColumns.includes(column.nameKey)
                       ? faCheckSquare
                       : faSquare
                   }
                 />{' '}
-                {column.header}
+                {t(`invoice.propLabel.${column.nameKey}`)}
               </Dropdown.Item>
             ))}
         </Dropdown.Menu>
       </Dropdown>
-
       <table className="table table-bordered table-striped">
         <thead>
           <tr>
             {columns
-              .filter((column) => visibleColumns.includes(column.header))
+              .filter((column) => visibleColumns.includes(column.nameKey))
               .map((column) => (
-                <th key={column.header}>{column.header}</th>
+                <th key={column.nameKey}>
+                  {t(`invoice.propLabel.${column.nameKey}`)}
+                </th>
               ))}
           </tr>
         </thead>
@@ -163,7 +170,7 @@ const InvoicesList = (): React.ReactElement => {
           {invoicesList.map((invoice) => (
             <tr key={invoice.id}>
               {columns
-                .filter((column) => visibleColumns.includes(column.header))
+                .filter((column) => visibleColumns.includes(column.nameKey))
                 .map((column, index) => (
                   <td key={invoice.id + index}>{column.value(invoice)}</td>
                 ))}
@@ -171,7 +178,6 @@ const InvoicesList = (): React.ReactElement => {
           ))}
         </tbody>
       </table>
-
       {pagination && (
         <Pagination>
           {[...Array(pagination.total_pages)].map((el, ind) => (
@@ -185,9 +191,8 @@ const InvoicesList = (): React.ReactElement => {
           ))}
         </Pagination>
       )}
-
       <Link to={getRoutePath('InvoiceCreate')}>
-        <Button>Create new invoice</Button>
+        <Button>{t('invoice.create')}</Button>
       </Link>
     </>
   )
