@@ -1,6 +1,7 @@
 {
   "format":{
-    "intlNumber": "{{val, number(minimumFractionDigits: 2)}}"
+    "intlNumber": "{{val, number(minimumFractionDigits: 2)}}",
+    "intlDateTime": "{{val, datetime}}"
   },
   "general": {
     "yes": "Yes",
