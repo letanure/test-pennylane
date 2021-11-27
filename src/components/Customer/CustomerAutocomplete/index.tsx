@@ -1,5 +1,6 @@
 import { useCallback } from 'react'
 import { AsyncPaginate } from 'react-select-async-paginate'
+import { useTranslation } from 'react-i18next'
 
 import { Customer } from 'types'
 import { useApi } from 'api'
@@ -16,6 +17,7 @@ const getCustomerLabel = (customer: Customer) => {
 }
 
 const CustomerAutocomplete = ({ value, onChange }: Props) => {
+  const { t } = useTranslation()
   const api = useApi()
 
   const loadOptions = useCallback(
@@ -39,7 +41,7 @@ const CustomerAutocomplete = ({ value, onChange }: Props) => {
 
   return (
     <AsyncPaginate
-      placeholder="Search a customer"
+      placeholder={t('customer.autocomplete.placeholder')}
       getOptionLabel={getCustomerLabel}
       additional={defaultAdditional}
       value={value}
