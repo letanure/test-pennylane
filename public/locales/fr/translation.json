@@ -1,0 +1,31 @@
+{
+  "general": {
+    "yes": "Oui",
+    "no": "Non",
+    "delete": "Effacer",
+    "edit": "Éditer"
+  },
+  "table": {
+    "visibleColumns": "Colonnes visibles"
+  },
+  "invoice": {
+    "create": "Créer une nouvelle facture",
+    "propLabel": {
+      "id": "Id",
+      "customer": "Client",
+      "address": "Adresse",
+      "total": "Total",
+      "tax": "Impôt",
+      "finalized": "Finalisé",
+      "paid": "Payé",
+      "date": "Date",
+      "deadline": "Date limite",
+      "actions": "Actions"
+    }
+  },
+  "customer": {
+    "autocomplete": {
+      "placeholder": ""
+    }
+  }
+}
