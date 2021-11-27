@@ -21,6 +21,7 @@ const InvoicesListFilters = ({
   const { t } = useTranslation()
   const formData = {
     customer: '',
+    paid: 'all',
   }
 
   const formConfig: FormConfig = [
@@ -32,10 +33,30 @@ const InvoicesListFilters = ({
       required: false,
       value: '',
     },
+    {
+      name: 'paid',
+      label: t('invoice.propLabel.paid'),
+      type: 'select',
+      placeholder: '',
+      required: true,
+      value: '',
+      options: [
+        { label: t('general.all'), value: 'all' },
+        { label: t('general.yes'), value: 'yes' },
+        { label: t('general.no'), value: 'no' },
+      ],
+    },
   ]
 
   const handleSubmit = (data: ReturnValues) => {
     const result: Filters = []
+    if (data?.paid && data?.paid !== 'all') {
+      result.push({
+        field: 'paid',
+        operator: 'eq',
+        value: data.paid === 'yes',
+      })
+    }
     if (data.customer) {
       result.push({
         field: 'customer_id',
