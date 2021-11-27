@@ -1,0 +1,31 @@
+{
+  "general": {
+    "yes": "Yes",
+    "no": "No",
+    "edit": "Edit",
+    "delete": "Delete"
+  },
+  "table": {
+    "visibleColumns": "Visible columns"
+  },
+  "invoice": {
+    "create": "Create new invoice",
+    "propLabel": {
+      "id": "Id",
+      "customer": "Customer",
+      "address": "Address",
+      "total": "Total",
+      "tax": "Tax",
+      "finalized": "Finalized",
+      "paid": "Paid",
+      "date": "Date",
+      "deadline": "Deadline",
+      "actions": "Actions"
+    }
+  },
+  "customer": {
+    "autocomplete": {
+      "placeholder": "Search a customer"
+    }
+  }
+}

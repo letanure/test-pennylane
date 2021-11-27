@@ -5,11 +5,14 @@ import {
   Redirect,
 } from 'react-router-dom'
 
-import { routes, getRoutePath } from './routes'
+import { routes, getRoutePath } from 'routes'
+
+import LanguageSwitcher from 'components/ui/FormRender/LanguageSwitcher'
 
 function App() {
   return (
     <div className="px-5">
+      <LanguageSwitcher />
       <Router>
         <Switch>
           {routes.map(({ path, component: Component, redirect }) => (
