@@ -9,5 +9,9 @@
   column-gap: 15px;
 }
 .horizontal label{
-  display: none;
+  font-size: small;
+  margin-bottom: 0px;
+}
+.btnSubmit{
+  margin-top: 24px;
 }

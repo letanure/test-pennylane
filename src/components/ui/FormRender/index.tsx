@@ -150,7 +150,11 @@ const FormRender = ({
                 </FormGroup>
               )
             )}
-            <Button type="submit" disabled={isSubmitting}>
+            <Button
+              type="submit"
+              disabled={isSubmitting}
+              className={styles.btnSubmit}
+            >
               Submit
             </Button>
           </Form>
