@@ -6,6 +6,7 @@ const LanguageSwitcher = () => {
   const languages = [
     { code: 'en', name: 'English' },
     { code: 'fr', name: 'Français' },
+    { code: 'pt', name: 'Português' },
   ]
 
   return (
