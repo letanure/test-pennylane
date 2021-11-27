@@ -1,4 +1,7 @@
 {
+  "format":{
+    "intlNumber": "{{val, number(minimumFractionDigits: 2)}}"
+  },
   "general": {
     "yes": "Yes",
     "no": "No",

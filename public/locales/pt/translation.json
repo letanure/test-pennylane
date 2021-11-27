@@ -1,0 +1,31 @@
+{
+  "customer": {
+    "autocomplete": {
+      "placeholder": "Procure um cliente"
+    }
+  },
+  "general": {
+    "delete": "Excluir",
+    "edit": "Editar",
+    "no": "Não",
+    "yes": "sim"
+  },
+  "invoice": {
+    "create": "Criar nova fatura",
+    "propLabel": {
+      "actions": "Ações",
+      "address": "Endereço",
+      "customer": "Cliente",
+      "date": "Encontro",
+      "deadline": "Prazo final",
+      "finalized": "Finalizado",
+      "id": "Identificação",
+      "paid": "Pago",
+      "tax": "Imposto",
+      "total": "Total"
+    }
+  },
+  "table": {
+    "visibleColumns": "Colunas visíveis"
+  }
+}
