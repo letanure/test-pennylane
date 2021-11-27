@@ -21,7 +21,7 @@ type formItem = {
   readOnly?: boolean
   required: boolean
   type: 'text' | 'number' | 'select' | 'CustomerAutocomplete'
-  value: string | boolean | number
+  value: string | boolean | number | {}
   valueType?: 'string' | 'number' | 'boolean'
 }
 
@@ -34,7 +34,7 @@ export type FormProps = {
 }
 
 export type ReturnValues = {
-  [key: string]: string | boolean | number
+  [key: string]: string | boolean | number | any
 }
 
 const FormRender = ({ config, values, onSubmit }: FormProps) => {
@@ -130,7 +130,7 @@ const FormRender = ({ config, values, onSubmit }: FormProps) => {
                         {type === 'CustomerAutocomplete' && (
                           <CustomerAutocomplete
                             onChange={(customer: any) =>
-                              setFieldValue(name, customer.id)
+                              setFieldValue(name, customer)
                             }
                             value={field.value}
                           />

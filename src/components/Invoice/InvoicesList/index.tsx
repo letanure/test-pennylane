@@ -4,11 +4,14 @@ import { useEffect, useCallback, useState, ReactNode } from 'react'
 import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSquare, faCheckSquare } from '@fortawesome/free-solid-svg-icons'
-import { Button, Dropdown } from 'react-bootstrap'
+import { Button, Col, Dropdown, Row } from 'react-bootstrap'
 import { useTranslation } from 'react-i18next'
 
 import { getRoutePath } from 'routes'
 import { Pagination } from 'react-bootstrap'
+import InvoiceListFilters, {
+  Filters,
+} from 'components/Invoice/InvoiceListFilters'
 
 type ColumnConfig = {
   nameKey: string
@@ -101,7 +104,7 @@ const InvoicesList = (): React.ReactElement => {
   ]
 
   const api = useApi()
-
+  const [invoicesListFilters, setInvoicesListFilters] = useState<Filters>([])
   const [invoicesList, setInvoicesList] = useState<Invoice[]>([])
   const [currentPage, setCurrentPage] = useState(1)
   const [pagination, setPagination] = useState<any>()
@@ -112,10 +115,11 @@ const InvoicesList = (): React.ReactElement => {
   const fetchInvoices = useCallback(async () => {
     const { data } = await api.getInvoices({
       page: currentPage,
+      filter: JSON.stringify(invoicesListFilters),
     })
     setPagination(data.pagination)
     setInvoicesList(data.invoices)
-  }, [api, currentPage])
+  }, [api, currentPage, invoicesListFilters])
 
   useEffect(() => {
     fetchInvoices()
@@ -133,34 +137,49 @@ const InvoicesList = (): React.ReactElement => {
       : setVisibleColumns([...visibleColumns, nameKey])
   }
 
+  const handleFilterChange = (data: Filters) => {
+    setInvoicesListFilters(data)
+  }
+
   return (
     <>
-      <Dropdown autoClose="outside">
-        <Dropdown.Toggle variant="secondary">
-          {t('table.visibleColumns')}
-        </Dropdown.Toggle>
-        <Dropdown.Menu>
-          {columns
-            .filter((column) => !column.alwaysVisible)
-            .map((column) => (
-              <Dropdown.Item
-                key={column.nameKey}
-                onClick={() => {
-                  handleColumnVisibilityChange(column.nameKey)
-                }}
-              >
-                <FontAwesomeIcon
-                  icon={
-                    visibleColumns.includes(column.nameKey)
-                      ? faCheckSquare
-                      : faSquare
-                  }
-                />{' '}
-                {t(`invoice.propLabel.${column.nameKey}`)}
-              </Dropdown.Item>
-            ))}
-        </Dropdown.Menu>
-      </Dropdown>
+      <Row>
+        <Col xs={10}>
+          <InvoiceListFilters
+            data={invoicesListFilters}
+            onSubmit={handleFilterChange}
+          />
+        </Col>
+        <Col xs={2}>
+          <Dropdown autoClose="outside">
+            <Dropdown.Toggle variant="secondary">
+              {t('table.visibleColumns')}
+            </Dropdown.Toggle>
+            <Dropdown.Menu>
+              {columns
+                .filter((column) => !column.alwaysVisible)
+                .map((column) => (
+                  <Dropdown.Item
+                    key={column.nameKey}
+                    onClick={() => {
+                      handleColumnVisibilityChange(column.nameKey)
+                    }}
+                  >
+                    <FontAwesomeIcon
+                      icon={
+                        visibleColumns.includes(column.nameKey)
+                          ? faCheckSquare
+                          : faSquare
+                      }
+                    />{' '}
+                    {t(`invoice.propLabel.${column.nameKey}`)}
+                  </Dropdown.Item>
+                ))}
+            </Dropdown.Menu>
+          </Dropdown>
+        </Col>
+      </Row>
+
       <table className="table table-bordered table-striped">
         <thead>
           <tr>
