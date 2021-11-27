@@ -22,6 +22,7 @@ const InvoicesListFilters = ({
   const formData = {
     customer: '',
     paid: 'all',
+    finalized: 'all',
   }
 
   const formConfig: FormConfig = [
@@ -46,10 +47,30 @@ const InvoicesListFilters = ({
         { label: t('general.no'), value: 'no' },
       ],
     },
+    {
+      name: 'finalized',
+      label: t('invoice.propLabel.finalized'),
+      type: 'select',
+      placeholder: '',
+      required: true,
+      value: '',
+      options: [
+        { label: t('general.all'), value: 'all' },
+        { label: t('general.yes'), value: 'yes' },
+        { label: t('general.no'), value: 'no' },
+      ],
+    },
   ]
 
   const handleSubmit = (data: ReturnValues) => {
     const result: Filters = []
+    if (data?.finalized && data?.finalized !== 'all') {
+      result.push({
+        field: 'finalized',
+        operator: 'eq',
+        value: data.finalized === 'yes',
+      })
+    }
     if (data?.paid && data?.paid !== 'all') {
       result.push({
         field: 'paid',
