@@ -49,6 +49,7 @@ const InvoicesListFilters = ({
   return (
     <>
       <FormRender
+        layout="horizontal"
         config={formConfig}
         values={formData}
         onSubmit={handleSubmit}

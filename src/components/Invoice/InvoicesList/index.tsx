@@ -12,6 +12,7 @@ import { Pagination } from 'react-bootstrap'
 import InvoiceListFilters, {
   Filters,
 } from 'components/Invoice/InvoiceListFilters'
+import styles from './style.module.css'
 
 type ColumnConfig = {
   nameKey: string
@@ -143,7 +144,7 @@ const InvoicesList = (): React.ReactElement => {
 
   return (
     <>
-      <Row>
+      <Row className={styles.rowFilters}>
         <Col xs={10}>
           <InvoiceListFilters
             data={invoicesListFilters}
@@ -151,7 +152,7 @@ const InvoicesList = (): React.ReactElement => {
           />
         </Col>
         <Col xs={2}>
-          <Dropdown autoClose="outside">
+          <Dropdown autoClose="outside" className={styles.dropdownColumns}>
             <Dropdown.Toggle variant="secondary">
               {t('table.visibleColumns')}
             </Dropdown.Toggle>
@@ -180,46 +181,60 @@ const InvoicesList = (): React.ReactElement => {
         </Col>
       </Row>
 
-      <table className="table table-bordered table-striped">
-        <thead>
-          <tr>
-            {columns
-              .filter((column) => visibleColumns.includes(column.nameKey))
-              .map((column) => (
-                <th key={column.nameKey}>
-                  {t(`invoice.propLabel.${column.nameKey}`)}
-                </th>
+      <Row>
+        <Col xs={12}>
+          <table className="table table-bordered table-striped">
+            <thead>
+              <tr>
+                {columns
+                  .filter((column) => visibleColumns.includes(column.nameKey))
+                  .map((column) => (
+                    <th key={column.nameKey}>
+                      {t(`invoice.propLabel.${column.nameKey}`)}
+                    </th>
+                  ))}
+              </tr>
+            </thead>
+            <tbody>
+              {invoicesList.map((invoice) => (
+                <tr key={invoice.id}>
+                  {columns
+                    .filter((column) => visibleColumns.includes(column.nameKey))
+                    .map((column, index) => (
+                      <td key={invoice.id + index}>{column.value(invoice)}</td>
+                    ))}
+                </tr>
               ))}
-          </tr>
-        </thead>
-        <tbody>
-          {invoicesList.map((invoice) => (
-            <tr key={invoice.id}>
-              {columns
-                .filter((column) => visibleColumns.includes(column.nameKey))
-                .map((column, index) => (
-                  <td key={invoice.id + index}>{column.value(invoice)}</td>
-                ))}
-            </tr>
-          ))}
-        </tbody>
-      </table>
-      {pagination && pagination.total_pages > 1 && (
-        <Pagination>
-          {[...Array(pagination.total_pages)].map((el, ind) => (
-            <Pagination.Item
-              key={ind}
-              active={pagination.page === ind + 1}
-              onClick={() => setCurrentPage(ind + 1)}
-            >
-              {ind + 1}
-            </Pagination.Item>
-          ))}
-        </Pagination>
-      )}
-      <Link to={getRoutePath('InvoiceCreate')}>
-        <Button>{t('invoice.create')}</Button>
-      </Link>
+            </tbody>
+          </table>
+        </Col>
+      </Row>
+
+      <Row>
+        <Col xs={6}>
+          {pagination && pagination.total_pages > 1 && (
+            <Pagination>
+              {[...Array(pagination.total_pages)].map((el, ind) => (
+                <Pagination.Item
+                  key={ind}
+                  active={pagination.page === ind + 1}
+                  onClick={() => setCurrentPage(ind + 1)}
+                >
+                  {ind + 1}
+                </Pagination.Item>
+              ))}
+            </Pagination>
+          )}
+        </Col>
+        <Col xs={6}>
+          <Link
+            to={getRoutePath('InvoiceCreate')}
+            className={styles.btnAddInvoice}
+          >
+            <Button>{t('invoice.create')}</Button>
+          </Link>
+        </Col>
+      </Row>
     </>
   )
 }
