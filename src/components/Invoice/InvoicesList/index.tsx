@@ -4,11 +4,15 @@ import { useEffect, useCallback, useState, ReactNode } from 'react'
 import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSquare, faCheckSquare } from '@fortawesome/free-solid-svg-icons'
-import { Button, Dropdown } from 'react-bootstrap'
+import { Button, Col, Dropdown, Row } from 'react-bootstrap'
 import { useTranslation } from 'react-i18next'
 
 import { getRoutePath } from 'routes'
 import { Pagination } from 'react-bootstrap'
+import InvoiceListFilters, {
+  Filters,
+} from 'components/Invoice/InvoiceListFilters'
+import styles from './style.module.css'
 
 type ColumnConfig = {
   nameKey: string
@@ -101,7 +105,7 @@ const InvoicesList = (): React.ReactElement => {
   ]
 
   const api = useApi()
-
+  const [invoicesListFilters, setInvoicesListFilters] = useState<Filters>([])
   const [invoicesList, setInvoicesList] = useState<Invoice[]>([])
   const [currentPage, setCurrentPage] = useState(1)
   const [pagination, setPagination] = useState<any>()
@@ -112,10 +116,11 @@ const InvoicesList = (): React.ReactElement => {
   const fetchInvoices = useCallback(async () => {
     const { data } = await api.getInvoices({
       page: currentPage,
+      filter: JSON.stringify(invoicesListFilters),
     })
     setPagination(data.pagination)
     setInvoicesList(data.invoices)
-  }, [api, currentPage])
+  }, [api, currentPage, invoicesListFilters])
 
   useEffect(() => {
     fetchInvoices()
@@ -133,74 +138,103 @@ const InvoicesList = (): React.ReactElement => {
       : setVisibleColumns([...visibleColumns, nameKey])
   }
 
+  const handleFilterChange = (data: Filters) => {
+    setInvoicesListFilters(data)
+  }
+
   return (
     <>
-      <Dropdown autoClose="outside">
-        <Dropdown.Toggle variant="secondary">
-          {t('table.visibleColumns')}
-        </Dropdown.Toggle>
-        <Dropdown.Menu>
-          {columns
-            .filter((column) => !column.alwaysVisible)
-            .map((column) => (
-              <Dropdown.Item
-                key={column.nameKey}
-                onClick={() => {
-                  handleColumnVisibilityChange(column.nameKey)
-                }}
-              >
-                <FontAwesomeIcon
-                  icon={
-                    visibleColumns.includes(column.nameKey)
-                      ? faCheckSquare
-                      : faSquare
-                  }
-                />{' '}
-                {t(`invoice.propLabel.${column.nameKey}`)}
-              </Dropdown.Item>
-            ))}
-        </Dropdown.Menu>
-      </Dropdown>
-      <table className="table table-bordered table-striped">
-        <thead>
-          <tr>
-            {columns
-              .filter((column) => visibleColumns.includes(column.nameKey))
-              .map((column) => (
-                <th key={column.nameKey}>
-                  {t(`invoice.propLabel.${column.nameKey}`)}
-                </th>
-              ))}
-          </tr>
-        </thead>
-        <tbody>
-          {invoicesList.map((invoice) => (
-            <tr key={invoice.id}>
+      <Row className={styles.rowFilters}>
+        <Col xs={10}>
+          <InvoiceListFilters
+            data={invoicesListFilters}
+            onSubmit={handleFilterChange}
+          />
+        </Col>
+        <Col xs={2}>
+          <Dropdown autoClose="outside" className={styles.dropdownColumns}>
+            <Dropdown.Toggle variant="secondary">
+              {t('table.visibleColumns')}
+            </Dropdown.Toggle>
+            <Dropdown.Menu>
               {columns
-                .filter((column) => visibleColumns.includes(column.nameKey))
-                .map((column, index) => (
-                  <td key={invoice.id + index}>{column.value(invoice)}</td>
+                .filter((column) => !column.alwaysVisible)
+                .map((column) => (
+                  <Dropdown.Item
+                    key={column.nameKey}
+                    onClick={() => {
+                      handleColumnVisibilityChange(column.nameKey)
+                    }}
+                  >
+                    <FontAwesomeIcon
+                      icon={
+                        visibleColumns.includes(column.nameKey)
+                          ? faCheckSquare
+                          : faSquare
+                      }
+                    />{' '}
+                    {t(`invoice.propLabel.${column.nameKey}`)}
+                  </Dropdown.Item>
                 ))}
-            </tr>
-          ))}
-        </tbody>
-      </table>
-      {pagination && (
-        <Pagination>
-          {[...Array(pagination.total_pages)].map((el, ind) => (
-            <Pagination.Item
-              key={ind}
-              active={pagination.page === ind + 1}
-              onClick={() => setCurrentPage(ind + 1)}
-            >
-              {ind + 1}
-            </Pagination.Item>
-          ))}
-        </Pagination>
-      )}
-      <Link to={getRoutePath('InvoiceCreate')}>
-        <Button>{t('invoice.create')}</Button>
-      </Link>
+            </Dropdown.Menu>
+          </Dropdown>
+        </Col>
+      </Row>
+
+      <Row>
+        <Col xs={12}>
+          <table className="table table-bordered table-striped">
+            <thead>
+              <tr>
+                {columns
+                  .filter((column) => visibleColumns.includes(column.nameKey))
+                  .map((column) => (
+                    <th key={column.nameKey}>
+                      {t(`invoice.propLabel.${column.nameKey}`)}
+                    </th>
+                  ))}
+              </tr>
+            </thead>
+            <tbody>
+              {invoicesList.map((invoice) => (
+                <tr key={invoice.id}>
+                  {columns
+                    .filter((column) => visibleColumns.includes(column.nameKey))
+                    .map((column, index) => (
+                      <td key={invoice.id + index}>{column.value(invoice)}</td>
+                    ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </Col>
+      </Row>
+
+      <Row>
+        <Col xs={6}>
+          {pagination && pagination.total_pages > 1 && (
+            <Pagination>
+              {[...Array(pagination.total_pages)].map((el, ind) => (
+                <Pagination.Item
+                  key={ind}
+                  active={pagination.page === ind + 1}
+                  onClick={() => setCurrentPage(ind + 1)}
+                >
+                  {ind + 1}
+                </Pagination.Item>
+              ))}
+            </Pagination>
+          )}
+        </Col>
+        <Col xs={6}>
+          <Link
+            to={getRoutePath('InvoiceCreate')}
+            className={styles.btnAddInvoice}
+          >
+            <Button>{t('invoice.create')}</Button>
+          </Link>
+        </Col>
+      </Row>
     </>
   )
 }

@@ -1,8 +1,10 @@
 import { useCallback } from 'react'
 import { AsyncPaginate } from 'react-select-async-paginate'
+import { useTranslation } from 'react-i18next'
 
 import { Product } from 'types'
 import { useApi } from 'api'
+import { SingleValue, ActionMeta } from 'react-select'
 
 interface Props {
   value?: Product
@@ -12,6 +14,7 @@ interface Props {
 const defaultAdditional = { page: 1 }
 
 const ProductAutocomplete = ({ value, onChange }: Props) => {
+  const { t } = useTranslation()
   const api = useApi()
 
   const loadOptions = useCallback(
@@ -33,13 +36,21 @@ const ProductAutocomplete = ({ value, onChange }: Props) => {
     [api]
   )
 
+  const handleChange = (
+    product: SingleValue<Product>,
+    actionMeta: ActionMeta<Product>
+  ) => {
+    onChange(product as Product)
+  }
+
   return (
     <AsyncPaginate
-      placeholder="Search a product"
+      placeholder={t('product.autocomplete.placeholder')}
       additional={defaultAdditional}
       value={value}
-      onChange={onChange}
+      onChange={handleChange}
       loadOptions={loadOptions}
+      isClearable={true}
     />
   )
 }

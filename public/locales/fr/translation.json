@@ -1,5 +1,5 @@
 {
-  "format":{
+  "format": {
     "intlNumber": "{{val, number(minimumFractionDigits: 2)}}"
   },
   "general": {
@@ -29,6 +29,11 @@
   "customer": {
     "autocomplete": {
       "placeholder": ""
+    }
+  },
+  "product": {
+    "autocomplete": {
+      "placeholder": "Rechercher un produit"
     }
   }
 }

@@ -12,13 +12,6 @@ const InvoiceCreate = () => {
     date,
     deadline,
   }: any) => {
-    console.log('handleSubmit', {
-      customer_id,
-      finalized,
-      paid,
-      date,
-      deadline,
-    })
     const dataInvoice: Paths.PostInvoices.RequestBody['invoice'] = {
       customer_id,
       finalized,

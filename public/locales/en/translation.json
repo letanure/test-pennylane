@@ -1,5 +1,5 @@
 {
-  "format":{
+  "format": {
     "intlNumber": "{{val, number(minimumFractionDigits: 2)}}",
     "intlDateTime": "{{val, datetime}}"
   },
@@ -30,6 +30,11 @@
   "customer": {
     "autocomplete": {
       "placeholder": "Search a customer"
+    }
+  },
+  "product": {
+    "autocomplete": {
+      "placeholder": "Search a product"
     }
   }
 }

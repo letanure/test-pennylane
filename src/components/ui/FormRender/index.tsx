@@ -4,6 +4,7 @@ import FormGroup from 'react-bootstrap/FormGroup'
 import FormLabel from 'react-bootstrap/FormLabel'
 import Button from 'react-bootstrap/Button'
 
+import styles from './style.module.css'
 import CustomerAutocomplete from 'components/Customer/CustomerAutocomplete'
 
 type formOption = {
@@ -21,7 +22,7 @@ type formItem = {
   readOnly?: boolean
   required: boolean
   type: 'text' | 'number' | 'select' | 'CustomerAutocomplete'
-  value: string | boolean | number
+  value: string | boolean | number | {}
   valueType?: 'string' | 'number' | 'boolean'
 }
 
@@ -30,14 +31,20 @@ export type FormConfig = formItem[]
 export type FormProps = {
   config: FormConfig
   values: any
+  layout?: 'horizontal' | 'vertical'
   onSubmit: (values: ReturnValues) => void
 }
 
 export type ReturnValues = {
-  [key: string]: string | boolean | number
+  [key: string]: string | boolean | number | any
 }
 
-const FormRender = ({ config, values, onSubmit }: FormProps) => {
+const FormRender = ({
+  config,
+  values,
+  layout = 'vertical',
+  onSubmit,
+}: FormProps) => {
   const normaliseValues = (values: ReturnValues): ReturnValues => {
     let returnValues: ReturnValues = {}
     Object.keys(values).forEach((key) => {
@@ -78,7 +85,7 @@ const FormRender = ({ config, values, onSubmit }: FormProps) => {
           values,
           touched,
         }) => (
-          <Form onSubmit={handleSubmit}>
+          <Form onSubmit={handleSubmit} className={styles[layout]}>
             {config.map(
               ({
                 name,
@@ -130,7 +137,7 @@ const FormRender = ({ config, values, onSubmit }: FormProps) => {
                         {type === 'CustomerAutocomplete' && (
                           <CustomerAutocomplete
                             onChange={(customer: any) =>
-                              setFieldValue(name, customer.id)
+                              setFieldValue(name, customer)
                             }
                             value={field.value}
                           />

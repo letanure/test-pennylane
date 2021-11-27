@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 
 import { Customer } from 'types'
 import { useApi } from 'api'
+import { ActionMeta, SingleValue } from 'react-select'
 
 interface Props {
   value?: Customer
@@ -39,14 +40,22 @@ const CustomerAutocomplete = ({ value, onChange }: Props) => {
     [api]
   )
 
+  const handleChange = (
+    customer: SingleValue<Customer>,
+    actionMeta: ActionMeta<Customer>
+  ) => {
+    onChange(customer as Customer)
+  }
+
   return (
     <AsyncPaginate
       placeholder={t('customer.autocomplete.placeholder')}
       getOptionLabel={getCustomerLabel}
       additional={defaultAdditional}
       value={value}
-      onChange={onChange}
+      onChange={handleChange}
       loadOptions={loadOptions}
+      isClearable={true}
     />
   )
 }

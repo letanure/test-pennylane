@@ -27,5 +27,10 @@
   },
   "table": {
     "visibleColumns": "Colunas visíveis"
+  },
+  "product": {
+    "autocomplete": {
+      "placeholder": "Pesquise um produto"
+    }
   }
 }

@@ -1,0 +1,11 @@
+.btnAddInvoice{
+    float: right;
+}
+
+.rowFilters{
+    margin-bottom: 16px;
+}
+
+.dropdownColumns{
+    text-align: right;
+}

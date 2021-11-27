@@ -7,7 +7,7 @@ import {
 
 import { routes, getRoutePath } from 'routes'
 
-import LanguageSwitcher from 'components/ui/FormRender/LanguageSwitcher'
+import LanguageSwitcher from 'components/ui/LanguageSwitcher'
 
 function App() {
   return (
