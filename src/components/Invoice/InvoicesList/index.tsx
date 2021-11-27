@@ -41,12 +41,13 @@ const InvoicesList = (): React.ReactElement => {
     {
       nameKey: 'total',
       visible: true,
-      value: (invoice: Invoice) => invoice.total,
+      value: (invoice: Invoice) =>
+        t('format.intlNumber', { val: invoice.total }),
     },
     {
       nameKey: 'tax',
       visible: true,
-      value: (invoice: Invoice) => invoice.tax,
+      value: (invoice: Invoice) => t('format.intlNumber', { val: invoice.tax }),
     },
     {
       nameKey: 'finalized',
