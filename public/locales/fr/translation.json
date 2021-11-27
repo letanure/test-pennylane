@@ -6,7 +6,8 @@
     "yes": "Oui",
     "no": "Non",
     "delete": "Effacer",
-    "edit": "Éditer"
+    "edit": "Éditer",
+    "all": "Tous"
   },
   "table": {
     "visibleColumns": "Colonnes visibles"
