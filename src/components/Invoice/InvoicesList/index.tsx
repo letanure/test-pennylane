@@ -204,7 +204,7 @@ const InvoicesList = (): React.ReactElement => {
           ))}
         </tbody>
       </table>
-      {pagination && (
+      {pagination && pagination.total_pages > 1 && (
         <Pagination>
           {[...Array(pagination.total_pages)].map((el, ind) => (
             <Pagination.Item
