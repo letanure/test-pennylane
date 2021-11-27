@@ -1,6 +1,5 @@
 import FormRender, { FormConfig, ReturnValues } from 'components/ui/FormRender'
 import { useTranslation } from 'react-i18next'
-import { resourceLimits } from 'worker_threads'
 
 export type Filter = {
   field: string
