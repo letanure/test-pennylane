@@ -24,6 +24,12 @@
       "paid": "Pago",
       "tax": "Imposto",
       "total": "Total"
+    },
+    "deleteConfirm": {
+      "cancel": "Cancelar",
+      "confirm": "Excluir",
+      "message": "Tem certeza de que deseja excluir o id da fatura <b> {{id}} </b> de <b> {{customer}} </b>?",
+      "title": "Excluir fatura"
     }
   },
   "table": {
