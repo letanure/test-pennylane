@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { Button, Modal } from 'react-bootstrap'
 
 export type ConfirmProps = {
