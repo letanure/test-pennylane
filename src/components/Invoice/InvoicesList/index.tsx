@@ -11,11 +11,11 @@ import {
   OverlayTrigger,
   Row,
   Tooltip,
+  Pagination,
 } from 'react-bootstrap'
 import { useTranslation } from 'react-i18next'
 
 import { getRoutePath } from 'routes'
-import { Pagination } from 'react-bootstrap'
 import InvoiceListFilters, {
   Filters,
 } from 'components/Invoice/InvoiceListFilters'
