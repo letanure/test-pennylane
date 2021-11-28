@@ -40,7 +40,8 @@
   },
   "msg": {
     "invoice": {
-      "finalizedNotDeletable": "A finalized invoice cannot be deleted"
+      "finalizedNotDeletable": "A finalized invoice cannot be deleted",
+      "finalizedNotEdited": "A finalized invoice cannot be modified"
     }
   }
 }
