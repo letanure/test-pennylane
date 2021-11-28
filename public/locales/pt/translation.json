@@ -36,7 +36,8 @@
   },
   "msg": {
     "invoice": {
-      "finalizedNotDeletable": "Uma fatura finalizada não pode ser excluída"
+      "finalizedNotDeletable": "Uma fatura finalizada não pode ser excluída",
+      "finalizedNotEdited": "Uma fatura finalizada não pode ser modificada"
     }
   }
 }

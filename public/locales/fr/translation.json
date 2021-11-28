@@ -39,7 +39,8 @@
   },
   "msg": {
     "invoice": {
-      "finalizedNotDeletable": "Une facture finalisée ne peut pas être supprimée"
+      "finalizedNotDeletable": "Une facture finalisée ne peut pas être supprimée",
+      "finalizedNotEdited": "Une facture finalisée ne peut pas être modifiée"
     }
   }
 }
