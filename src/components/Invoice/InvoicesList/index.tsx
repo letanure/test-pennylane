@@ -11,14 +11,15 @@ import {
   OverlayTrigger,
   Row,
   Tooltip,
+  Pagination,
 } from 'react-bootstrap'
 import { useTranslation } from 'react-i18next'
 
 import { getRoutePath } from 'routes'
-import { Pagination } from 'react-bootstrap'
 import InvoiceListFilters, {
   Filters,
 } from 'components/Invoice/InvoiceListFilters'
+import Confirm from 'components/ui/Confirm'
 import styles from './style.module.css'
 
 type ColumnConfig = {
@@ -31,6 +32,11 @@ type ColumnsConfig = ColumnConfig[]
 
 const InvoicesList = (): React.ReactElement => {
   const { t } = useTranslation()
+  const api = useApi()
+  const [invoicesListFilters, setInvoicesListFilters] = useState<Filters>([])
+  const [invoicesList, setInvoicesList] = useState<Invoice[]>([])
+  const [currentPage, setCurrentPage] = useState(1)
+  const [pagination, setPagination] = useState<any>()
 
   const columns: ColumnsConfig = [
     {
@@ -132,7 +138,7 @@ const InvoicesList = (): React.ReactElement => {
               <Button
                 variant="outline-danger"
                 size="sm"
-                onClick={() => handleDeleteClick(invoice.id)}
+                onClick={() => handleDeleteClick(invoice)}
               >
                 {t('general.delete')}
               </Button>
@@ -142,12 +148,6 @@ const InvoicesList = (): React.ReactElement => {
       ),
     },
   ]
-
-  const api = useApi()
-  const [invoicesListFilters, setInvoicesListFilters] = useState<Filters>([])
-  const [invoicesList, setInvoicesList] = useState<Invoice[]>([])
-  const [currentPage, setCurrentPage] = useState(1)
-  const [pagination, setPagination] = useState<any>()
   const [visibleColumns, setVisibleColumns] = useState<string[]>(
     columns.filter((column) => column.visible).map((column) => column.nameKey)
   )
@@ -165,11 +165,6 @@ const InvoicesList = (): React.ReactElement => {
     fetchInvoices()
   }, [fetchInvoices])
 
-  const handleDeleteClick = async (id: number) => {
-    await api.deleteInvoice(id)
-    fetchInvoices()
-  }
-
   const handleColumnVisibilityChange = (nameKey: string) => {
     const columnIsVisible = visibleColumns.includes(nameKey)
     columnIsVisible
@@ -181,8 +176,50 @@ const InvoicesList = (): React.ReactElement => {
     setInvoicesListFilters(data)
   }
 
+  const dialogEmpty = {
+    show: false,
+    message: '',
+    title: '',
+    textConfirm: t('invoice.deleteConfirm.confirm'),
+    textCancel: t('invoice.deleteConfirm.cancel'),
+    onConfirm: () => {},
+  }
+  const [configDeleteModal, setConfigDeleteModal] = useState(dialogEmpty)
+
+  const confirmDialogClose = () => {
+    setConfigDeleteModal(dialogEmpty)
+  }
+
+  const handleDeleteClick = async (invoice: Invoice) => {
+    setConfigDeleteModal({
+      ...configDeleteModal,
+      show: true,
+      title: t('invoice.deleteConfirm.title'),
+      message: t('invoice.deleteConfirm.message', {
+        id: invoice.id,
+        customer: `${invoice.customer?.first_name} ${invoice.customer?.last_name}`,
+      }),
+      onConfirm: () => deleteInvoice(invoice.id),
+    })
+  }
+
+  const deleteInvoice = async (id: number) => {
+    await api.deleteInvoice(id)
+    confirmDialogClose()
+    fetchInvoices()
+  }
+
   return (
     <>
+      <Confirm
+        show={configDeleteModal.show}
+        message={configDeleteModal.message}
+        onHide={() => confirmDialogClose()}
+        onConfirm={configDeleteModal.onConfirm}
+        title={configDeleteModal.title}
+        textConfirm={configDeleteModal.textConfirm}
+        textCancel={configDeleteModal.textCancel}
+      />
       <Row className={styles.rowFilters}>
         <Col xs={10}>
           <InvoiceListFilters

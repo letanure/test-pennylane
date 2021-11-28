@@ -25,6 +25,12 @@
       "date": "Date",
       "deadline": "Date limite",
       "actions": "Actions"
+    },
+    "deleteConfirm": {
+      "cancel": "Annuler",
+      "confirm": "Effacer",
+      "message": "Voulez-vous vraiment supprimer l'ID de facture <b>{{id}}</b> de <b>{{customer}}</b> ?",
+      "title": "Supprimer la facture"
     }
   },
   "customer": {

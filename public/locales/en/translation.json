@@ -26,6 +26,12 @@
       "date": "Date",
       "deadline": "Deadline",
       "actions": "Actions"
+    },
+    "deleteConfirm": {
+      "title": "Delete invoice",
+      "message": "Are you sure you want to delete the invoice id <b>{{id}}</b> from <b>{{customer}}</b>?",
+      "confirm": "Delete",
+      "cancel": "Cancel"
     }
   },
   "customer": {
