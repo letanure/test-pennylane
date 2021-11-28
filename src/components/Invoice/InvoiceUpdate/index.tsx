@@ -7,7 +7,7 @@ import InvoiceForm from 'components/Invoice/InvoiceForm'
 import { ReturnValues } from 'components/ui/FormRender'
 
 const InvoiceShow = () => {
-  const { id } = useParams<{ id: string }>()
+  const { id } = useParams()
   const api = useApi()
   const [invoice, setInvoice] = useState<Invoice>()
 

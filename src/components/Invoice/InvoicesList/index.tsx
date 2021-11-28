@@ -4,6 +4,7 @@ import { useEffect, useCallback, useState, ReactNode } from 'react'
 import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSquare, faCheckSquare } from '@fortawesome/free-solid-svg-icons'
+import { useSearchParams } from 'react-router-dom'
 import {
   Button,
   Col,
@@ -32,11 +33,26 @@ type ColumnConfig = {
 type ColumnsConfig = ColumnConfig[]
 
 const InvoicesList = (): React.ReactElement => {
+  let [searchParams, setSearchParams] = useSearchParams()
+
+  const urlParams = [...searchParams]
+    .map((item) => ({
+      field: item[0],
+      operator: 'eq',
+      value: item[1],
+    }))
+    .filter((item) => item.value !== '') as Filters
+
+  console.log(searchParams)
+
   const { t } = useTranslation()
   const api = useApi()
-  const [invoicesListFilters, setInvoicesListFilters] = useState<Filters>([])
+  const [invoicesListFilters, setInvoicesListFilters] =
+    useState<Filters>(urlParams)
   const [invoicesList, setInvoicesList] = useState<Invoice[]>([])
-  const [currentPage, setCurrentPage] = useState(1)
+  const [currentPage, setCurrentPage] = useState(
+    Number(searchParams.get('page') || 1)
+  )
   const [pagination, setPagination] = useState<any>()
 
   const columns: ColumnsConfig = [
@@ -158,9 +174,20 @@ const InvoicesList = (): React.ReactElement => {
       page: currentPage,
       filter: JSON.stringify(invoicesListFilters),
     })
-    setPagination(data.pagination)
-    setInvoicesList(data.invoices)
-  }, [api, currentPage, invoicesListFilters])
+    await setPagination(data.pagination)
+    await setInvoicesList(data.invoices)
+    if (data.pagination.page > data.pagination.total_pages) {
+      setCurrentPage(data.pagination.total_pages)
+    }
+    const updateSearchParams = () => {
+      const queryValues = invoicesListFilters.reduce(
+        (sum, item) => ({ ...sum, [item.field]: item.value }),
+        {}
+      )
+      setSearchParams({ ...queryValues, page: currentPage } as any)
+    }
+    updateSearchParams()
+  }, [api, currentPage, invoicesListFilters, setSearchParams])
 
   useEffect(() => {
     fetchInvoices()
