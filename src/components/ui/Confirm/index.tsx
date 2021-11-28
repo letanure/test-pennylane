@@ -34,7 +34,7 @@ const Confirm = ({
 
         {!!message && (
           <Modal.Body>
-            <p>{message}</p>
+            <p dangerouslySetInnerHTML={{ __html: message }}></p>
           </Modal.Body>
         )}
 
