@@ -37,5 +37,10 @@
     "autocomplete": {
       "placeholder": "Search a product"
     }
+  },
+  "msg": {
+    "invoice": {
+      "finalizedNotDeletable": "A finalized invoice cannot be deleted"
+    }
   }
 }

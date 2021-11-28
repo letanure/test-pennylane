@@ -4,7 +4,14 @@ import { useEffect, useCallback, useState, ReactNode } from 'react'
 import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSquare, faCheckSquare } from '@fortawesome/free-solid-svg-icons'
-import { Button, Col, Dropdown, Row } from 'react-bootstrap'
+import {
+  Button,
+  Col,
+  Dropdown,
+  OverlayTrigger,
+  Row,
+  Tooltip,
+} from 'react-bootstrap'
 import { useTranslation } from 'react-i18next'
 
 import { getRoutePath } from 'routes'
@@ -24,6 +31,7 @@ type ColumnsConfig = ColumnConfig[]
 
 const InvoicesList = (): React.ReactElement => {
   const { t } = useTranslation()
+
   const columns: ColumnsConfig = [
     {
       nameKey: 'id',
@@ -92,13 +100,31 @@ const InvoicesList = (): React.ReactElement => {
               {t('general.edit')}
             </Button>
           </Link>
-          <Button
-            variant="outline-danger"
-            size="sm"
-            onClick={() => handleDeleteClick(invoice.id)}
-          >
-            {t('general.delete')}
-          </Button>
+
+          {invoice.finalized && (
+            <OverlayTrigger
+              placement="top"
+              overlay={
+                <Tooltip>{t('msg.invoice.finalizedNotDeletable')}</Tooltip>
+              }
+            >
+              <span>
+                <Button variant="outline-danger" size="sm" disabled={true}>
+                  {t('general.delete')}
+                </Button>
+              </span>
+            </OverlayTrigger>
+          )}
+
+          {!invoice.finalized && (
+            <Button
+              variant="outline-danger"
+              size="sm"
+              onClick={() => handleDeleteClick(invoice.id)}
+            >
+              {t('general.delete')}
+            </Button>
+          )}
         </>
       ),
     },

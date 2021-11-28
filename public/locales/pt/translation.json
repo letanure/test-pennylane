@@ -33,5 +33,10 @@
     "autocomplete": {
       "placeholder": "Pesquise um produto"
     }
+  },
+  "msg": {
+    "invoice": {
+      "finalizedNotDeletable": "Uma fatura finalizada não pode ser excluída"
+    }
   }
 }
