@@ -95,35 +95,48 @@ const InvoicesList = (): React.ReactElement => {
       alwaysVisible: true,
       value: (invoice: Invoice) => (
         <>
-          <Link to={getRoutePath('InvoiceUpdate', { id: invoice.id })}>
-            <Button variant="outline-primary" size="sm">
-              {t('general.edit')}
-            </Button>
-          </Link>
-
           {invoice.finalized && (
-            <OverlayTrigger
-              placement="top"
-              overlay={
-                <Tooltip>{t('msg.invoice.finalizedNotDeletable')}</Tooltip>
-              }
-            >
-              <span>
-                <Button variant="outline-danger" size="sm" disabled={true}>
-                  {t('general.delete')}
-                </Button>
-              </span>
-            </OverlayTrigger>
+            <>
+              <OverlayTrigger
+                overlay={
+                  <Tooltip>{t('msg.invoice.finalizedNotEdited')}</Tooltip>
+                }
+              >
+                <span>
+                  <Button variant="outline-primary" size="sm" disabled={true}>
+                    {t('general.edit')}
+                  </Button>
+                </span>
+              </OverlayTrigger>
+              <OverlayTrigger
+                overlay={
+                  <Tooltip>{t('msg.invoice.finalizedNotDeletable')}</Tooltip>
+                }
+              >
+                <span>
+                  <Button variant="outline-danger" size="sm" disabled={true}>
+                    {t('general.delete')}
+                  </Button>
+                </span>
+              </OverlayTrigger>
+            </>
           )}
 
           {!invoice.finalized && (
-            <Button
-              variant="outline-danger"
-              size="sm"
-              onClick={() => handleDeleteClick(invoice.id)}
-            >
-              {t('general.delete')}
-            </Button>
+            <>
+              <Link to={getRoutePath('InvoiceUpdate', { id: invoice.id })}>
+                <Button variant="outline-primary" size="sm">
+                  {t('general.edit')}
+                </Button>
+              </Link>
+              <Button
+                variant="outline-danger"
+                size="sm"
+                onClick={() => handleDeleteClick(invoice.id)}
+              >
+                {t('general.delete')}
+              </Button>
+            </>
           )}
         </>
       ),
