@@ -9,7 +9,8 @@
     "edit": "Editar",
     "no": "Não",
     "yes": "Sim",
-    "all": "Todos"
+    "all": "Todos",
+    "appName": "AppFaturas"
   },
   "invoice": {
     "create": "Criar nova fatura",
@@ -45,5 +46,8 @@
       "finalizedNotDeletable": "Uma fatura finalizada não pode ser excluída",
       "finalizedNotEdited": "Uma fatura finalizada não pode ser modificada"
     }
+  },
+  "nav": {
+    "InvoiceList": "Faturas"
   }
 }

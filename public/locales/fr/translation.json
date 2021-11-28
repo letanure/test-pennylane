@@ -7,7 +7,8 @@
     "no": "Non",
     "delete": "Effacer",
     "edit": "Éditer",
-    "all": "Tous"
+    "all": "Tous",
+    "appName": "AppFactures"
   },
   "table": {
     "visibleColumns": "Colonnes visibles"
