@@ -11,8 +11,8 @@ import {
   OverlayTrigger,
   Row,
   Tooltip,
-  Pagination,
 } from 'react-bootstrap'
+
 import { useTranslation } from 'react-i18next'
 
 import { getRoutePath } from 'routes'
@@ -20,6 +20,7 @@ import InvoiceListFilters, {
   Filters,
 } from 'components/Invoice/InvoiceListFilters'
 import Confirm from 'components/ui/Confirm'
+import Pagination from 'components/ui/Pagination'
 import styles from './style.module.css'
 
 type ColumnConfig = {
@@ -289,17 +290,11 @@ const InvoicesList = (): React.ReactElement => {
       <Row>
         <Col xs={6}>
           {pagination && pagination.total_pages > 1 && (
-            <Pagination>
-              {[...Array(pagination.total_pages)].map((el, ind) => (
-                <Pagination.Item
-                  key={ind}
-                  active={pagination.page === ind + 1}
-                  onClick={() => setCurrentPage(ind + 1)}
-                >
-                  {ind + 1}
-                </Pagination.Item>
-              ))}
-            </Pagination>
+            <Pagination
+              page={currentPage}
+              total={pagination.total_pages as number}
+              onPageChange={setCurrentPage}
+            />
           )}
         </Col>
         <Col xs={6}>
