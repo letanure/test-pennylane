@@ -28,9 +28,7 @@ export const ApiProvider: React.FC<ApiProviderProps> = ({
       withServer: { url },
       axiosConfigDefaults: {
         headers: {
-          common: {
-            'X-SESSION': token,
-          },
+          'X-SESSION': token,
         },
       },
     })
