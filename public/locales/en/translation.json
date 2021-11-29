@@ -30,7 +30,7 @@
     },
     "deleteConfirm": {
       "title": "Delete invoice",
-      "message": "Are you sure you want to delete the invoice id <b>{{id}}</b> from <b>{{customer}}</b>?",
+      "message": "Are you sure you want to delete the invoice with ID <b>{{id}}</b> from <b>{{customer}}</b>?",
       "confirm": "Delete",
       "cancel": "Cancel"
     },

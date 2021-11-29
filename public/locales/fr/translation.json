@@ -30,7 +30,7 @@
     "deleteConfirm": {
       "cancel": "Annuler",
       "confirm": "Effacer",
-      "message": "Voulez-vous vraiment supprimer l'ID de facture <b>{{id}}</b> de <b>{{customer}}</b> ?",
+      "message": "Êtes-vous sûr de vouloir supprimer la facture avec l'ID <b>{{id}}</b> de <b>{{customer}}</b> ?",
       "title": "Supprimer la facture"
     },
     "form": {
