@@ -1,3 +1,7 @@
+html {
+  scroll-behavior: smooth;
+}
+
 .btnAddInvoice{
     float: right;
 }
@@ -13,4 +17,24 @@
 
 .headSuffix{
   color: lightslategray;
+}
+
+.stickHead{
+  position: sticky;
+  top: 55px;
+  background: white;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 8;
+}
+
+.stickFooter {
+    position: sticky;
+    bottom: 0;
+    background: #fff;
+    padding: 8px 0 0 0;
+    border-top: 1px solid #dee2e6;
+    margin: -16px 0;
+}
+.pagination {
+  margin-bottom: 8px;
 }
