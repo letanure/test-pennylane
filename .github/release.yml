@@ -14,7 +14,10 @@ changelog:
     - title: New Features 🎉
       labels:
         - Semver-Minor
-        - enhancement
+        - feat
+    - title: Bug Fixes
+      labels:
+        - fix
     - title: Other Changes
       labels:
         - "*"

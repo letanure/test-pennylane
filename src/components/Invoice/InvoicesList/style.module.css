@@ -9,3 +9,7 @@
 .dropdownColumns{
     text-align: right;
 }
+
+.headSuffix{
+  color: lightslategray;
+}
