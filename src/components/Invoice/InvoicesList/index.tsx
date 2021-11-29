@@ -2,17 +2,8 @@ import { useApi } from 'api'
 import { Invoice } from 'types'
 import { useEffect, useCallback, useState, ReactNode } from 'react'
 import { Link } from 'react-router-dom'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSquare, faCheckSquare } from '@fortawesome/free-solid-svg-icons'
 import { useSearchParams } from 'react-router-dom'
-import {
-  Button,
-  Col,
-  Dropdown,
-  OverlayTrigger,
-  Row,
-  Tooltip,
-} from 'react-bootstrap'
+import { Button, Col, OverlayTrigger, Row, Tooltip } from 'react-bootstrap'
 
 import { useTranslation } from 'react-i18next'
 
@@ -23,10 +14,12 @@ import InvoiceListFilters, {
 import Confirm from 'components/ui/Confirm'
 import Pagination from 'components/ui/Pagination'
 import styles from './style.module.css'
+import InvoiceConfigColumns from 'components/Invoice/InvoiceConfigColumns'
 
 type ColumnConfig = {
   nameKey: string
   visible: boolean
+  labelSuffix?: string
   value: (invoice: Invoice) => string | number | null | ReactNode
   alwaysVisible?: boolean
 }
@@ -42,8 +35,6 @@ const InvoicesList = (): React.ReactElement => {
       value: item[1],
     }))
     .filter((item) => item.value !== '') as Filters
-
-  console.log(searchParams)
 
   const { t } = useTranslation()
   const api = useApi()
@@ -75,12 +66,14 @@ const InvoicesList = (): React.ReactElement => {
     },
     {
       nameKey: 'total',
+      labelSuffix: '€',
       visible: true,
       value: (invoice: Invoice) =>
         t('format.intlNumber', { val: invoice.total }),
     },
     {
       nameKey: 'tax',
+      labelSuffix: '€',
       visible: true,
       value: (invoice: Invoice) => t('format.intlNumber', { val: invoice.tax }),
     },
@@ -165,9 +158,7 @@ const InvoicesList = (): React.ReactElement => {
       ),
     },
   ]
-  const [visibleColumns, setVisibleColumns] = useState<string[]>(
-    columns.filter((column) => column.visible).map((column) => column.nameKey)
-  )
+  const [visibleColumns, setVisibleColumns] = useState<string[]>([])
 
   const fetchInvoices = useCallback(async () => {
     const { data } = await api.getInvoices({
@@ -192,13 +183,6 @@ const InvoicesList = (): React.ReactElement => {
   useEffect(() => {
     fetchInvoices()
   }, [fetchInvoices])
-
-  const handleColumnVisibilityChange = (nameKey: string) => {
-    const columnIsVisible = visibleColumns.includes(nameKey)
-    columnIsVisible
-      ? setVisibleColumns(visibleColumns.filter((column) => column !== nameKey))
-      : setVisibleColumns([...visibleColumns, nameKey])
-  }
 
   const handleFilterChange = (data: Filters) => {
     setInvoicesListFilters(data)
@@ -237,6 +221,10 @@ const InvoicesList = (): React.ReactElement => {
     fetchInvoices()
   }
 
+  const handleColumnVisibilityChange = (visibleColumns: string[]) => {
+    setVisibleColumns(visibleColumns)
+  }
+
   return (
     <>
       <Confirm
@@ -255,33 +243,11 @@ const InvoicesList = (): React.ReactElement => {
             onSubmit={handleFilterChange}
           />
         </Col>
-        <Col xs={2}>
-          <Dropdown autoClose="outside" className={styles.dropdownColumns}>
-            <Dropdown.Toggle variant="secondary">
-              {t('table.visibleColumns')}
-            </Dropdown.Toggle>
-            <Dropdown.Menu>
-              {columns
-                .filter((column) => !column.alwaysVisible)
-                .map((column) => (
-                  <Dropdown.Item
-                    key={column.nameKey}
-                    onClick={() => {
-                      handleColumnVisibilityChange(column.nameKey)
-                    }}
-                  >
-                    <FontAwesomeIcon
-                      icon={
-                        visibleColumns.includes(column.nameKey)
-                          ? faCheckSquare
-                          : faSquare
-                      }
-                    />{' '}
-                    {t(`invoice.propLabel.${column.nameKey}`)}
-                  </Dropdown.Item>
-                ))}
-            </Dropdown.Menu>
-          </Dropdown>
+        <Col xs={2} className={styles.configColumns}>
+          <InvoiceConfigColumns
+            columns={columns}
+            onChange={handleColumnVisibilityChange}
+          />
         </Col>
       </Row>
 
@@ -295,6 +261,12 @@ const InvoicesList = (): React.ReactElement => {
                   .map((column) => (
                     <th key={column.nameKey}>
                       {t(`invoice.propLabel.${column.nameKey}`)}
+                      {column?.labelSuffix && (
+                        <span className={styles.headSuffix}>
+                          {' '}
+                          ({column.labelSuffix})
+                        </span>
+                      )}
                     </th>
                   ))}
               </tr>
