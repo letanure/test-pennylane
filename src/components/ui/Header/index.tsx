@@ -7,7 +7,6 @@ import { useTranslation } from 'react-i18next'
 import LanguageSwitcher from 'components/ui/LanguageSwitcher'
 import { getRoutePath } from 'routes'
 import styles from './styles.module.css'
-console.log(styles)
 
 const Header = () => {
   const { t } = useTranslation()
