@@ -1,6 +1,10 @@
 import { OperationMethods } from 'api/gen/client'
 import { Awaited } from './helpers'
 
+export type InvoiceCreatePayload = Parameters<
+  OperationMethods['postInvoices']
+>[1]
+
 export type Invoice = Awaited<
   ReturnType<OperationMethods['getInvoices']>
 >['data']['invoices'][0]
