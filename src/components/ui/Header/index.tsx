@@ -6,12 +6,14 @@ import { useTranslation } from 'react-i18next'
 
 import LanguageSwitcher from 'components/ui/LanguageSwitcher'
 import { getRoutePath } from 'routes'
+import styles from './styles.module.css'
+console.log(styles)
 
 const Header = () => {
   const { t } = useTranslation()
   return (
     <>
-      <Navbar bg="light" expand="lg">
+      <Navbar bg="light" expand="lg" className={styles.header}>
         <Container>
           <Navbar.Brand as={Link} to={getRoutePath('home')}>
             <FontAwesomeIcon icon={faFileInvoiceDollar} />{' '}
