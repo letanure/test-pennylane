@@ -27,6 +27,7 @@ import styles from './style.module.css'
 type ColumnConfig = {
   nameKey: string
   visible: boolean
+  labelSuffix?: string
   value: (invoice: Invoice) => string | number | null | ReactNode
   alwaysVisible?: boolean
 }
@@ -42,8 +43,6 @@ const InvoicesList = (): React.ReactElement => {
       value: item[1],
     }))
     .filter((item) => item.value !== '') as Filters
-
-  console.log(searchParams)
 
   const { t } = useTranslation()
   const api = useApi()
@@ -75,12 +74,14 @@ const InvoicesList = (): React.ReactElement => {
     },
     {
       nameKey: 'total',
+      labelSuffix: '€',
       visible: true,
       value: (invoice: Invoice) =>
         t('format.intlNumber', { val: invoice.total }),
     },
     {
       nameKey: 'tax',
+      labelSuffix: '€',
       visible: true,
       value: (invoice: Invoice) => t('format.intlNumber', { val: invoice.tax }),
     },
@@ -295,6 +296,12 @@ const InvoicesList = (): React.ReactElement => {
                   .map((column) => (
                     <th key={column.nameKey}>
                       {t(`invoice.propLabel.${column.nameKey}`)}
+                      {column?.labelSuffix && (
+                        <span className={styles.headSuffix}>
+                          {' '}
+                          ({column.labelSuffix})
+                        </span>
+                      )}
                     </th>
                   ))}
               </tr>
