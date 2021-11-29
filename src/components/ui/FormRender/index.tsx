@@ -32,6 +32,7 @@ export type FormProps = {
   config: FormConfig
   values: ReturnValues | null
   layout?: 'horizontal' | 'vertical'
+  title?: string
   onSubmit: (values: ReturnValues) => void
 }
 
@@ -41,8 +42,9 @@ export type ReturnValues = {
 
 const FormRender = ({
   config,
-  values,
   layout = 'vertical',
+  title,
+  values,
   onSubmit,
 }: FormProps) => {
   const defaultValues = config.reduce(
@@ -78,6 +80,7 @@ const FormRender = ({
 
   return (
     <>
+      {title && <h3>{title}</h3>}
       <Formik
         initialValues={values || defaultValues}
         onSubmit={(values, { setSubmitting }) => {

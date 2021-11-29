@@ -33,6 +33,11 @@
       "message": "Are you sure you want to delete the invoice id <b>{{id}}</b> from <b>{{customer}}</b>?",
       "confirm": "Delete",
       "cancel": "Cancel"
+    },
+    "form": {
+      "create": {
+        "title": "Create new invoice"
+      }
     }
   },
   "customer": {

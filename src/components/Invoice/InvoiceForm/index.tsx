@@ -1,5 +1,6 @@
 import FormRender, { FormConfig } from 'components/ui/FormRender'
 import { Invoice, InvoiceCreatePayload } from 'types'
+import { useTranslation } from 'react-i18next'
 
 const formConfig: FormConfig = [
   {
@@ -69,11 +70,17 @@ export type InvoiceFormProps = {
 }
 
 const InvoiceForm = ({ values, onSubmit }: InvoiceFormProps) => {
+  const { t } = useTranslation()
   const handleSubmit = (data: any) => {
     onSubmit(data)
   }
   return (
-    <FormRender config={formConfig} values={values} onSubmit={handleSubmit} />
+    <FormRender
+      config={formConfig}
+      values={values}
+      onSubmit={handleSubmit}
+      title={t('invoice.form.create.title')}
+    />
   )
 }
 

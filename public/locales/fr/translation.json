@@ -32,6 +32,11 @@
       "confirm": "Effacer",
       "message": "Voulez-vous vraiment supprimer l'ID de facture <b>{{id}}</b> de <b>{{customer}}</b> ?",
       "title": "Supprimer la facture"
+    },
+    "form": {
+      "create": {
+        "title": "Créer une nouvelle facture"
+      }
     }
   },
   "customer": {
@@ -49,5 +54,8 @@
       "finalizedNotDeletable": "Une facture finalisée ne peut pas être supprimée",
       "finalizedNotEdited": "Une facture finalisée ne peut pas être modifiée"
     }
+  },
+  "nav": {
+    "InvoiceList": "Factures"
   }
 }
