@@ -1,5 +1,6 @@
 import FormRender, { FormConfig, ReturnValues } from 'components/ui/FormRender'
 import { useTranslation } from 'react-i18next'
+import { useSearchParams } from 'react-router-dom'
 
 export type Filter = {
   field: string
@@ -11,7 +12,13 @@ export type Filters = Filter[]
 
 export type InvoicesListFiltersProps = {
   data: Filters
-  onSubmit: (data: Filters) => void
+  onSubmit: (data: any) => void
+}
+
+type InvoiceFiltersOptions = {
+  customer_id?: string
+  paid?: string
+  finalized?: string
 }
 
 const InvoicesListFilters = ({
@@ -19,15 +26,17 @@ const InvoicesListFilters = ({
   onSubmit,
 }: InvoicesListFiltersProps): React.ReactElement => {
   const { t } = useTranslation()
-  const formData = {
-    customer: '',
-    paid: 'all',
-    finalized: 'all',
+  let [searchParams, setSearchParams] = useSearchParams()
+
+  const formData: InvoiceFiltersOptions = {
+    customer_id: searchParams.get('customer_id') || '',
+    paid: searchParams.get('paid') || 'all',
+    finalized: searchParams.get('finalized') || 'all',
   }
 
   const formConfig: FormConfig = [
     {
-      name: 'customer',
+      name: 'customer_id',
       label: t('invoice.propLabel.customer'),
       type: 'CustomerAutocomplete',
       placeholder: '',
@@ -62,7 +71,22 @@ const InvoicesListFilters = ({
     },
   ]
 
+  const updateSearchParams = (data: ReturnValues) => {
+    const resultQuery = Object.keys(data).reduce((acc, key) => {
+      if (!['all', '', null].includes(data[key])) {
+        acc[key] = data[key]
+      }
+      return acc
+    }, {} as ReturnValues)
+    if (resultQuery.customer_id) {
+      resultQuery.customer_id = resultQuery.customer_id.id
+    }
+    setSearchParams(resultQuery)
+  }
+
   const handleSubmit = (data: ReturnValues) => {
+    updateSearchParams(data)
+
     const result: Filters = []
     if (data?.finalized && data?.finalized !== 'all') {
       result.push({
@@ -78,18 +102,19 @@ const InvoicesListFilters = ({
         value: data.paid === 'yes',
       })
     }
-    if (data.customer) {
+    if (data.customer_id) {
       result.push({
         field: 'customer_id',
         operator: 'eq',
-        value: data.customer.id,
+        value: data.customer_id.id,
       })
     }
+    console.log(result)
     onSubmit(result)
   }
   return (
     <>
-      <FormRender
+      <FormRender<InvoiceFiltersOptions>
         layout="horizontal"
         config={formConfig}
         values={formData}
