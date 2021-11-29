@@ -1,24 +1,14 @@
-import FormRender, { FormConfig, ReturnValues } from 'components/ui/FormRender'
-import { Invoice } from 'types'
+import FormRender, { FormConfig } from 'components/ui/FormRender'
+import { Invoice, InvoiceCreatePayload } from 'types'
 
 const formConfig: FormConfig = [
   {
-    name: 'id',
-    label: 'ID',
-    type: 'number',
-    placeholder: '',
-    required: true,
-    value: '',
-    readOnly: true,
-  },
-  {
     name: 'customer_id',
-    label: 'customer ID',
+    label: 'Customer',
     type: 'CustomerAutocomplete',
     placeholder: '',
     required: true,
     value: '',
-    readOnly: true,
     valueType: 'number',
   },
   {
@@ -27,7 +17,7 @@ const formConfig: FormConfig = [
     type: 'select',
     placeholder: '',
     required: true,
-    value: '',
+    value: false,
     options: [
       { label: 'Yes', value: true },
       { label: 'No', value: false },
@@ -40,7 +30,7 @@ const formConfig: FormConfig = [
     type: 'select',
     placeholder: '',
     required: true,
-    value: '',
+    value: false,
     options: [
       { label: 'Yes', value: true },
       { label: 'No', value: false },
@@ -53,7 +43,7 @@ const formConfig: FormConfig = [
     type: 'text',
     placeholder: '',
     required: true,
-    value: '',
+    value: new Date().toLocaleDateString('en-GB').replaceAll('/', '-'),
   },
   {
     name: 'deadline',
@@ -64,34 +54,26 @@ const formConfig: FormConfig = [
     value: '',
   },
   {
-    name: 'total',
-    label: 'Total',
+    name: 'invoice_lines_attributes',
+    label: 'Products',
     type: 'number',
     placeholder: '',
-    required: true,
-    value: '',
-  },
-  {
-    name: 'tax',
-    label: 'Tax',
-    type: 'number',
-    placeholder: '',
-    required: true,
-    value: '',
+    required: false,
+    value: [],
   },
 ]
 
 export type InvoiceFormProps = {
-  data: Invoice
-  onSubmit: (data: ReturnValues) => void
+  values: Invoice | null
+  onSubmit: (data: InvoiceCreatePayload) => void
 }
 
-const InvoiceForm = ({ data, onSubmit }: InvoiceFormProps) => {
-  const handleSubmit = (data: ReturnValues) => {
+const InvoiceForm = ({ values, onSubmit }: InvoiceFormProps) => {
+  const handleSubmit = (data: any) => {
     onSubmit(data)
   }
   return (
-    <FormRender config={formConfig} values={data} onSubmit={handleSubmit} />
+    <FormRender config={formConfig} values={values} onSubmit={handleSubmit} />
   )
 }
 
