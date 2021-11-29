@@ -24,7 +24,8 @@
       "id": "Id",
       "paid": "Pago",
       "tax": "Imposto",
-      "total": "Total"
+      "total": "Total",
+      "invoice_lines_attributes": "Produtos"
     },
     "deleteConfirm": {
       "cancel": "Cancelar",

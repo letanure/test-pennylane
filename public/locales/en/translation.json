@@ -26,7 +26,8 @@
       "paid": "Paid",
       "date": "Date",
       "deadline": "Deadline",
-      "actions": "Actions"
+      "actions": "Actions",
+      "invoice_lines_attributes": "Products"
     },
     "deleteConfirm": {
       "title": "Delete invoice",

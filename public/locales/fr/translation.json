@@ -25,7 +25,8 @@
       "paid": "Payé",
       "date": "Date",
       "deadline": "Date limite",
-      "actions": "Actions"
+      "actions": "Actions",
+      "invoice_lines_attributes": "Des produits"
     },
     "deleteConfirm": {
       "cancel": "Annuler",
@@ -41,7 +42,7 @@
   },
   "customer": {
     "autocomplete": {
-      "placeholder": ""
+      "placeholder": "Rechercher un client"
     }
   },
   "product": {
