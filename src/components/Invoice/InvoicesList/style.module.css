@@ -6,6 +6,7 @@
     margin-bottom: 16px;
 }
 
-.dropdownColumns{
+.configColumns{
     text-align: right;
+    padding-top: 24px;
 }
