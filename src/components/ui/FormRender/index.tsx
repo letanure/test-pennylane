@@ -30,7 +30,7 @@ export type FormConfig = formItem[]
 
 export type FormProps = {
   config: FormConfig
-  values: any
+  values: ReturnValues | null
   layout?: 'horizontal' | 'vertical'
   onSubmit: (values: ReturnValues) => void
 }
@@ -45,13 +45,21 @@ const FormRender = ({
   layout = 'vertical',
   onSubmit,
 }: FormProps) => {
+  const defaultValues = config.reduce(
+    (acc, curr) => ({
+      ...acc,
+      [curr.name]: curr.value,
+    }),
+    {}
+  )
+
   const normaliseValues = (values: ReturnValues): ReturnValues => {
     let returnValues: ReturnValues = {}
     Object.keys(values).forEach((key) => {
       const configItem = config.find((item) => item.name === key)
       if (configItem?.valueType) {
         if (configItem.valueType === 'number') {
-          returnValues[key] = Number(values[key])
+          returnValues[key] = Number(values[key].id || values[key])
         }
         if (configItem.valueType === 'boolean') {
           returnValues[key] = values[key] === 'true'
@@ -71,7 +79,7 @@ const FormRender = ({
   return (
     <>
       <Formik
-        initialValues={values}
+        initialValues={values || defaultValues}
         onSubmit={(values, { setSubmitting }) => {
           handleSubmit(values)
           setSubmitting(false)
