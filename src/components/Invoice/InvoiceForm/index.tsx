@@ -27,8 +27,8 @@ const InvoiceForm = ({ values, onSubmit }: InvoiceFormProps) => {
       required: true,
       value: false,
       options: [
-        { label: 'Yes', value: true },
-        { label: 'No', value: false },
+        { label: t('general.yes'), value: true },
+        { label: t('general.no'), value: false },
       ],
       valueType: 'boolean',
     },
@@ -40,8 +40,8 @@ const InvoiceForm = ({ values, onSubmit }: InvoiceFormProps) => {
       required: true,
       value: false,
       options: [
-        { label: 'Yes', value: true },
-        { label: 'No', value: false },
+        { label: t('general.yes'), value: true },
+        { label: t('general.no'), value: false },
       ],
       valueType: 'boolean',
     },
