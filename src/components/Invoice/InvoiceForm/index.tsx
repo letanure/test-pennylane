@@ -41,7 +41,7 @@ const formConfig: FormConfig = [
   {
     name: 'date',
     label: 'Date',
-    type: 'text',
+    type: 'Datepicker',
     placeholder: '',
     required: true,
     value: '',
@@ -49,7 +49,7 @@ const formConfig: FormConfig = [
   {
     name: 'deadline',
     label: 'Deadline',
-    type: 'text',
+    type: 'Datepicker',
     placeholder: '',
     required: true,
     value: '',
