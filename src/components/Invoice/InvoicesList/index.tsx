@@ -251,7 +251,7 @@ const InvoicesList = (): React.ReactElement => {
         </Col>
       </Row>
 
-      <Row>
+      <Row className={styles.rowTable}>
         <Col xs={12}>
           <table className="table table-bordered table-striped">
             <thead className={styles.stickHead}>
