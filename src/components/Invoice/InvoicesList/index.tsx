@@ -33,22 +33,11 @@ type ColumnConfig = {
 type ColumnsConfig = ColumnConfig[]
 
 const InvoicesList = (): React.ReactElement => {
-  let [searchParams, setSearchParams] = useSearchParams()
-
-  const urlParams = [...searchParams]
-    .map((item) => ({
-      field: item[0],
-      operator: 'eq',
-      value: item[1],
-    }))
-    .filter((item) => item.value !== '') as Filters
-
-  console.log(searchParams)
+  let [searchParams] = useSearchParams()
 
   const { t } = useTranslation()
   const api = useApi()
-  const [invoicesListFilters, setInvoicesListFilters] =
-    useState<Filters>(urlParams)
+  const [invoicesListFilters, setInvoicesListFilters] = useState<Filters>([])
   const [invoicesList, setInvoicesList] = useState<Invoice[]>([])
   const [currentPage, setCurrentPage] = useState(
     Number(searchParams.get('page') || 1)
@@ -179,15 +168,7 @@ const InvoicesList = (): React.ReactElement => {
     if (data.pagination.page > data.pagination.total_pages) {
       setCurrentPage(data.pagination.total_pages)
     }
-    const updateSearchParams = () => {
-      const queryValues = invoicesListFilters.reduce(
-        (sum, item) => ({ ...sum, [item.field]: item.value }),
-        {}
-      )
-      setSearchParams({ ...queryValues, page: currentPage } as any)
-    }
-    updateSearchParams()
-  }, [api, currentPage, invoicesListFilters, setSearchParams])
+  }, [api, currentPage, invoicesListFilters])
 
   useEffect(() => {
     fetchInvoices()
@@ -250,6 +231,7 @@ const InvoicesList = (): React.ReactElement => {
       />
       <Row className={styles.rowFilters}>
         <Col xs={10}>
+          <pre>{JSON.stringify(invoicesListFilters)}</pre>
           <InvoiceListFilters
             data={invoicesListFilters}
             onSubmit={handleFilterChange}
