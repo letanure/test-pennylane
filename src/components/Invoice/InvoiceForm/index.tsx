@@ -44,7 +44,7 @@ const formConfig: FormConfig = [
     type: 'text',
     placeholder: '',
     required: true,
-    value: new Date().toLocaleDateString('en-GB')?.replaceAll('/', '-'),
+    value: '',
   },
   {
     name: 'deadline',
