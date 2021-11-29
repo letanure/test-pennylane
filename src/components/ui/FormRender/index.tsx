@@ -28,27 +28,27 @@ type formItem = {
 
 export type FormConfig = formItem[]
 
-export type FormProps = {
-  config: FormConfig
-  values: any
-  layout?: 'horizontal' | 'vertical'
-  onSubmit: (values: ReturnValues) => void
-}
-
 export type ReturnValues = {
   [key: string]: string | boolean | number | any
 }
 
-const FormRender = ({
+interface FormProps<T extends ReturnValues> {
+  config: FormConfig
+  values: T
+  layout?: 'horizontal' | 'vertical'
+  onSubmit: (values: T) => void
+}
+
+const FormRender = <T extends ReturnValues>({
   config,
   values,
   layout = 'vertical',
   onSubmit,
-}: FormProps) => {
-  const normaliseValues = (values: ReturnValues): ReturnValues => {
-    let returnValues: ReturnValues = {}
-    Object.keys(values).forEach((key) => {
-      const configItem = config.find((item) => item.name === key)
+}: FormProps<T>) => {
+  const normaliseValues = (values: T): T => {
+    let returnValues = {} as ReturnValues
+    Object.keys(values).forEach((key: string) => {
+      const configItem = config.find((item: formItem) => item.name === key)
       if (configItem?.valueType) {
         if (configItem.valueType === 'number') {
           returnValues[key] = Number(values[key])
@@ -60,10 +60,10 @@ const FormRender = ({
         returnValues[key] = values[key]
       }
     })
-    return returnValues
+    return returnValues as T
   }
 
-  const handleSubmit = (values: ReturnValues) => {
+  const handleSubmit = (values: T) => {
     const returnValues = normaliseValues(values)
     onSubmit(returnValues)
   }
@@ -95,7 +95,8 @@ const FormRender = ({
                 required,
                 readOnly,
                 options,
-              }) => (
+                value,
+              }: formItem) => (
                 <FormGroup key={name}>
                   <Field name={name}>
                     {({ field, form, meta }: any) => (
