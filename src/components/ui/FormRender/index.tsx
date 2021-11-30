@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 import { FormControl, FormGroup, FormLabel, Button } from 'react-bootstrap'
 import DatePicker from 'react-datepicker'
@@ -103,9 +104,11 @@ const FormRender = ({
     return returnValues
   }
 
+  let navigate = useNavigate()
   const handleSubmit = (values: ReturnValues) => {
     const returnValues = normaliseValues(values)
     onSubmit(returnValues)
+    navigate(-1)
   }
 
   console.clear()
