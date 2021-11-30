@@ -14,6 +14,7 @@ import pt from 'date-fns/locale/pt'
 
 import styles from './styles.module.css'
 import CustomerAutocomplete from 'components/Customer/CustomerAutocomplete'
+import ProductAutocomplete from 'components/Product/ProductAutocomplete'
 
 type formOption = {
   label: string
@@ -29,7 +30,13 @@ type formItem = {
   placeholder: string
   readOnly?: boolean
   required: boolean
-  type: 'text' | 'number' | 'select' | 'CustomerAutocomplete' | 'Datepicker'
+  type:
+    | 'text'
+    | 'number'
+    | 'select'
+    | 'CustomerAutocomplete'
+    | 'Datepicker'
+    | 'ProductAutocomplete'
   value: string | boolean | number | {}
   valueType?: 'string' | 'number' | 'boolean'
 }
@@ -168,6 +175,14 @@ const FormRender = ({
                         )}
                         {type === 'CustomerAutocomplete' && (
                           <CustomerAutocomplete
+                            onChange={(customer: any) =>
+                              setFieldValue(name, customer)
+                            }
+                            value={field.value}
+                          />
+                        )}
+                        {type === 'ProductAutocomplete' && (
+                          <ProductAutocomplete
                             onChange={(customer: any) =>
                               setFieldValue(name, customer)
                             }
