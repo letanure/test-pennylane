@@ -174,15 +174,12 @@ const FormRender = ({
                           </FormControl>
                         )}
                         {type === 'CustomerAutocomplete' && (
-                          <>
-                            {JSON.stringify(field.value)}
-                            <CustomerAutocomplete
-                              onChange={(customer: any) =>
-                                setFieldValue(name, customer.id)
-                              }
-                              value={values.customer}
-                            />
-                          </>
+                          <CustomerAutocomplete
+                            onChange={(customer: any) =>
+                              setFieldValue(name, customer.id)
+                            }
+                            value={values.customer}
+                          />
                         )}
                         {type === 'ProductAutocomplete' && (
                           <ProductAutocomplete
