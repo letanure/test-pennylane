@@ -1,16 +1,61 @@
+html {
+  scroll-behavior: smooth;
+}
+
 .btnAddInvoice{
-    float: right;
+  float: right;
 }
 
 .rowFilters{
-    margin-bottom: 16px;
+  margin-bottom: 16px;
+  z-index: 10;
+  position: relative;
+}
+.rowTable{
+  z-index: 9;
+  position: relative;
 }
 
 .configColumns{
-    text-align: right;
-    padding-top: 24px;
+  text-align: right;
+  padding-top: 24px;
 }
 
 .headSuffix{
   color: lightslategray;
+}
+#react-select-3-listbox{
+  z-index: 100;
+}
+.row {
+  max-height: 100vh;
+  transition: all .3s ease-in-out;
+}
+
+tr {
+  white-space: nowrap;
+}
+tr a + button, tr span + span {
+  margin-left: 8px;
+}
+
+.stickHead{
+  position: sticky;
+  top: 55px;
+  background: white;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 8;
+}
+
+.stickFooter {
+    position: sticky;
+    bottom: 0;
+    background: #fff;
+    padding: 8px 0 0 0;
+    border-top: 1px solid #dee2e6;
+    margin: -16px 0;
+    z-index: 9;
+}
+.pagination {
+  margin-bottom: 8px;
 }

@@ -14,7 +14,10 @@ const Pagination = ({ total, page, onPageChange }: PaginationProps) => {
           <PaginationBS.Item
             key={ind}
             active={page === ind + 1}
-            onClick={() => onPageChange(ind + 1)}
+            onClick={() => {
+              onPageChange(ind + 1)
+              window.scrollTo(0, 0)
+            }}
           >
             {ind + 1}
           </PaginationBS.Item>

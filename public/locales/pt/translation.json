@@ -18,19 +18,31 @@
       "actions": "Ações",
       "address": "Endereço",
       "customer": "Cliente",
-      "date": "Encontro",
+      "date": "Data",
       "deadline": "Prazo final",
       "finalized": "Finalizado",
-      "id": "Id",
+      "id": "ID",
       "paid": "Pago",
       "tax": "Imposto",
-      "total": "Total"
+      "total": "Total",
+      "invoice_lines_attributes": "Produtos",
+      "label": "Descrição",
+      "price": "Preço",
+      "product_id": "Produtos",
+      "quantity": "Quantidade",
+      "unit": "Unidade",
+      "vat_rate": "Taxa do IVA"
     },
     "deleteConfirm": {
       "cancel": "Cancelar",
       "confirm": "Excluir",
-      "message": "Tem certeza de que deseja excluir o id da fatura <b> {{id}} </b> de <b> {{customer}} </b>?",
+      "message": "Tem certeza de que deseja excluir a fatura ID:<b> {{id}} </b> de <b> {{customer}} </b>?",
       "title": "Excluir fatura"
+    },
+    "form": {
+      "create": {
+        "title": "Criar nova fatura"
+      }
     }
   },
   "table": {

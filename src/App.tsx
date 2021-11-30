@@ -14,12 +14,8 @@ import { Col, Container, Row } from 'react-bootstrap'
 function App() {
   return (
     <Router>
+      <Header />
       <Container>
-        <Row>
-          <Col>
-            <Header />
-          </Col>
-        </Row>
         <Row>
           <Col>
             <Routes>
