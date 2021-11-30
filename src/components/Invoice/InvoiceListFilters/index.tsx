@@ -82,7 +82,7 @@ const InvoicesListFilters = ({
       result.push({
         field: 'customer_id',
         operator: 'eq',
-        value: data.customer.id,
+        value: data.customer,
       })
     }
     onSubmit(result)
