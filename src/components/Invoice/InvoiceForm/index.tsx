@@ -5,9 +5,10 @@ import { useTranslation } from 'react-i18next'
 export type InvoiceFormProps = {
   values: Invoice | null
   onSubmit: (data: InvoiceCreatePayload) => void
+  title: string
 }
 
-const InvoiceForm = ({ values, onSubmit }: InvoiceFormProps) => {
+const InvoiceForm = ({ values, onSubmit, title }: InvoiceFormProps) => {
   const { t } = useTranslation()
   const formConfig: FormConfig = [
     {
@@ -78,7 +79,7 @@ const InvoiceForm = ({ values, onSubmit }: InvoiceFormProps) => {
       config={formConfig}
       values={values}
       onSubmit={handleSubmit}
-      title={t('invoice.form.create.title')}
+      title={title}
     />
   )
 }

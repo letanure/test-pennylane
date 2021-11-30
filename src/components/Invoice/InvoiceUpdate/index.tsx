@@ -1,11 +1,13 @@
 import { useState, useEffect } from 'react'
 import { useParams } from 'react-router'
+import { useTranslation } from 'react-i18next'
 
 import { Invoice } from 'types'
 import { useApi } from 'api'
 import InvoiceForm from 'components/Invoice/InvoiceForm'
 
 const InvoiceShow = () => {
+  const { t } = useTranslation()
   const { id } = useParams()
   const api = useApi()
   const [invoice, setInvoice] = useState<Invoice>()
@@ -26,7 +28,17 @@ const InvoiceShow = () => {
   }
 
   return (
-    <>{!!invoice && <InvoiceForm values={invoice} onSubmit={handleSubmit} />}</>
+    <>
+      {!!invoice && (
+        <InvoiceForm
+          values={invoice}
+          onSubmit={handleSubmit}
+          title={t('invoice.form.update.title', {
+            id: invoice.id,
+          })}
+        />
+      )}
+    </>
   )
 }
 

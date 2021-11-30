@@ -194,7 +194,9 @@ const FormRender = ({
                             className={styles.datepicker}
                             locale={i18n.language}
                             onChange={(date) => setFieldValue(name, date)}
-                            selected={new Date(field.value)}
+                            selected={
+                              field.value ? new Date(field.value) : null
+                            }
                             dateFormat="P"
                           />
                         )}
