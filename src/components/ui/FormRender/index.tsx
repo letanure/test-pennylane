@@ -178,7 +178,6 @@ const FormRender = ({
                             onChange={(customer: any) =>
                               setFieldValue(name, customer.id)
                             }
-                            value={values.customer}
                           />
                         )}
                         {type === 'ProductAutocomplete' && (
