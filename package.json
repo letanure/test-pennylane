@@ -56,7 +56,8 @@
     "eject_ts": "./bin/eject_ts",
     "openapi:gen": "yarn -s typegen src/api/schema.yml > src/api/gen/client.d.ts && yarn openapi:convert",
     "openapi:convert": "npx @redocly/openapi-cli bundle ./src/api/schema.yml -o ./src/api/gen/schema.json --format json",
-    "semantic-release": "semantic-release"
+    "semantic-release": "semantic-release",
+    "openapi:gen:simple": "npx openapi-typescript src/api/schema.yml --output src/api/schema.ts"
   },
   "eslintConfig": {
     "extends": [
