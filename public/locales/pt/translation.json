@@ -64,5 +64,9 @@
   },
   "nav": {
     "InvoiceList": "Faturas"
+  },
+  "page404": {
+    "linkText": "Voltar para página inicial",
+    "text": "A página que você requisitou não foi encontrada."
   }
 }

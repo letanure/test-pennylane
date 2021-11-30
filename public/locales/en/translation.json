@@ -68,5 +68,9 @@
   },
   "nav": {
     "InvoiceList": "Invoices"
+  },
+  "page404": {
+    "text": "The page you requested was not found.",
+    "linkText": "Back To Home"
   }
 }

@@ -2,6 +2,7 @@ import React from 'react'
 import InvoicesList from 'components/Invoice/InvoicesList'
 import InvoiceUpdate from 'components/Invoice/InvoiceUpdate'
 import InvoiceCreate from 'components/Invoice/InvoiceCreate'
+import Page404 from 'pages/404'
 
 type Route = {
   name: string
@@ -32,6 +33,11 @@ const routes: Routes = [
     name: 'home',
     path: '/',
     redirect: 'InvoiceList',
+  },
+  {
+    name: '404',
+    path: '*',
+    component: Page404,
   },
 ]
 type getParams = {

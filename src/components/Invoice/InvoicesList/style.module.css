@@ -29,14 +29,20 @@ html {
 }
 .row {
   max-height: 100vh;
-  transition: all .3s ease-in-out;
+  transition: all .2s ease-in-out;
 }
 
 tr {
   white-space: nowrap;
+  transition: background-color .3s ease-in-out;
 }
 tr a + button, tr span + span {
   margin-left: 8px;
+}
+
+tr:hover {
+  background-color: #efecec;
+  outline: 1px solid #d0d4d7;
 }
 
 .stickHead{
