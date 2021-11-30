@@ -174,12 +174,15 @@ const FormRender = ({
                           </FormControl>
                         )}
                         {type === 'CustomerAutocomplete' && (
-                          <CustomerAutocomplete
-                            onChange={(customer: any) =>
-                              setFieldValue(name, customer)
-                            }
-                            value={field.value}
-                          />
+                          <>
+                            {JSON.stringify(field.value)}
+                            <CustomerAutocomplete
+                              onChange={(customer: any) =>
+                                setFieldValue(name, customer.id)
+                              }
+                              value={values.customer}
+                            />
+                          </>
                         )}
                         {type === 'ProductAutocomplete' && (
                           <ProductAutocomplete
@@ -193,8 +196,8 @@ const FormRender = ({
                           <DatePicker
                             className={styles.datepicker}
                             locale={i18n.language}
-                            selected={field.value}
                             onChange={(date) => setFieldValue(name, date)}
+                            selected={new Date(field.value)}
                             dateFormat="P"
                           />
                         )}
