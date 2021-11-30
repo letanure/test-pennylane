@@ -26,7 +26,13 @@
       "date": "Date",
       "deadline": "Date limite",
       "actions": "Actions",
-      "invoice_lines_attributes": "Des produits"
+      "invoice_lines_attributes": "Des produits",
+      "label": "Description",
+      "price": "Prix",
+      "product_id": "Produit",
+      "quantity": "Quantité",
+      "vat_rate": "Taux de TVA",
+      "unit": "Unité"
     },
     "deleteConfirm": {
       "cancel": "Annuler",

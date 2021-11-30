@@ -27,7 +27,13 @@
       "date": "Date",
       "deadline": "Deadline",
       "actions": "Actions",
-      "invoice_lines_attributes": "Products"
+      "invoice_lines_attributes": "Products",
+      "product_id": "Product",
+      "quantity": "Quantity",
+      "label": "Label",
+      "unit": "Unit",
+      "vat_rate": "VAT rate",
+      "price": "Price"
     },
     "deleteConfirm": {
       "title": "Delete invoice",

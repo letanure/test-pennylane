@@ -18,14 +18,20 @@
       "actions": "Ações",
       "address": "Endereço",
       "customer": "Cliente",
-      "date": "Encontro",
+      "date": "Data",
       "deadline": "Prazo final",
       "finalized": "Finalizado",
-      "id": "Id",
+      "id": "ID",
       "paid": "Pago",
       "tax": "Imposto",
       "total": "Total",
-      "invoice_lines_attributes": "Produtos"
+      "invoice_lines_attributes": "Produtos",
+      "label": "Descrição",
+      "price": "Preço",
+      "product_id": "Produtos",
+      "quantity": "Quantidade",
+      "unit": "Unidade",
+      "vat_rate": "Taxa do IVA"
     },
     "deleteConfirm": {
       "cancel": "Cancelar",
