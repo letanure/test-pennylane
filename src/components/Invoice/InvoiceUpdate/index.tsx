@@ -20,6 +20,7 @@ const InvoiceShow = () => {
 
   const handleSubmit = (data: any) => {
     const id = data.id as number
+    data.invoice_lines_attributes = data.invoice_lines
     if (!!id) {
       api.putInvoice(id, data).then(({ data }) => {
         setInvoice(data)

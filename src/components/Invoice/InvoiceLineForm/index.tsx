@@ -2,13 +2,17 @@ import FormRender, { FormConfig, ReturnValues } from 'components/ui/FormRender'
 import { Invoice } from 'types'
 import { useTranslation } from 'react-i18next'
 import './styles.module.css'
+import { FunctionComponent } from 'react'
 
 export type ProductFormProps = {
-  data: Invoice['invoice_lines'][number] | null
+  values: Invoice['invoice_lines'][number] | null
   onSubmit: (data: any) => void
 }
 
-const InvoiceLineForm = ({ data, onSubmit }: ProductFormProps) => {
+const InvoiceLineForm: FunctionComponent<ProductFormProps> = ({
+  values,
+  onSubmit,
+}: ProductFormProps) => {
   const { t } = useTranslation()
   const formConfig: FormConfig = [
     {
@@ -85,9 +89,10 @@ const InvoiceLineForm = ({ data, onSubmit }: ProductFormProps) => {
   return (
     <FormRender
       config={formConfig}
-      values={data}
+      values={values}
       onSubmit={handleSubmit}
       layout="horizontal"
+      btnType="button"
     />
   )
 }
