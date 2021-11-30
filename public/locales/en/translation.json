@@ -44,6 +44,9 @@
     "form": {
       "create": {
         "title": "Create new invoice"
+      },
+      "update": {
+        "title": "Update invoice {{id}}"
       }
     }
   },

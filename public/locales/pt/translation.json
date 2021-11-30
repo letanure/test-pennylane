@@ -42,6 +42,9 @@
     "form": {
       "create": {
         "title": "Criar nova fatura"
+      },
+      "update": {
+        "title": "Atualizar fatura {{id}}"
       }
     }
   },
