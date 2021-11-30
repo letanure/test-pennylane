@@ -27,7 +27,7 @@ const InvoicesListFilters = ({
 
   const formConfig: FormConfig = [
     {
-      name: 'customer',
+      name: 'customer_id',
       label: t('invoice.propLabel.customer'),
       type: 'CustomerAutocomplete',
       placeholder: '',
@@ -78,11 +78,11 @@ const InvoicesListFilters = ({
         value: data.paid === 'yes',
       })
     }
-    if (data.customer) {
+    if (data.customer_id) {
       result.push({
         field: 'customer_id',
         operator: 'eq',
-        value: data.customer,
+        value: data.customer_id,
       })
     }
     onSubmit(result)
