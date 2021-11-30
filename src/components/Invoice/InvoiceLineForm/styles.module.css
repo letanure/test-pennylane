@@ -1,0 +1,18 @@
+[name="quantity"] {
+  width: 10ch;
+}
+[name="label"] {
+  width: 10ch;
+}
+[name="unit"] {
+  width: 10ch;
+}
+[name="vat_rate"] {
+  width: 10ch;
+}
+[name="price"] {
+  width: 12ch;
+}
+[name="tax"] {
+  width: 12ch;
+}

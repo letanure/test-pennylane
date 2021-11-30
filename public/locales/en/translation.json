@@ -26,13 +26,25 @@
       "paid": "Paid",
       "date": "Date",
       "deadline": "Deadline",
-      "actions": "Actions"
+      "actions": "Actions",
+      "invoice_lines_attributes": "Products",
+      "product_id": "Product",
+      "quantity": "Quantity",
+      "label": "Label",
+      "unit": "Unit",
+      "vat_rate": "VAT rate",
+      "price": "Price"
     },
     "deleteConfirm": {
       "title": "Delete invoice",
-      "message": "Are you sure you want to delete the invoice id <b>{{id}}</b> from <b>{{customer}}</b>?",
+      "message": "Are you sure you want to delete the invoice with ID <b>{{id}}</b> from <b>{{customer}}</b>?",
       "confirm": "Delete",
       "cancel": "Cancel"
+    },
+    "form": {
+      "create": {
+        "title": "Create new invoice"
+      }
     }
   },
   "customer": {

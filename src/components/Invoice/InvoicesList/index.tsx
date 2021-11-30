@@ -251,10 +251,10 @@ const InvoicesList = (): React.ReactElement => {
         </Col>
       </Row>
 
-      <Row>
+      <Row className={styles.rowTable}>
         <Col xs={12}>
           <table className="table table-bordered table-striped">
-            <thead>
+            <thead className={styles.stickHead}>
               <tr>
                 {columns
                   .filter((column) => visibleColumns.includes(column.nameKey))
@@ -286,7 +286,7 @@ const InvoicesList = (): React.ReactElement => {
         </Col>
       </Row>
 
-      <Row>
+      <Row className={styles.stickFooter}>
         <Col xs={6}>
           {pagination && pagination.total_pages > 1 && (
             <Pagination
