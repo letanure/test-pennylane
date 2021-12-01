@@ -1,18 +1,18 @@
-[name="quantity"] {
+form [name="quantity"] {
   width: 10ch;
 }
-[name="label"] {
+form [name="label"] {
   width: 10ch;
 }
-[name="unit"] {
+form [name="unit"] {
   width: 10ch;
 }
-[name="vat_rate"] {
+form [name="vat_rate"] {
   width: 10ch;
 }
-[name="price"] {
+form [name="price"] {
   width: 12ch;
 }
-[name="tax"] {
+form [name="tax"] {
   width: 12ch;
 }
