@@ -1,3 +1,24 @@
+.itemForm{
+  margin-bottom: 8px;
+}
+form form .itemForm{
+  margin-bottom: 8px;
+}
+form form .itemForm button{
+  margin: 0;
+}
+form form .itemForm label{
+  display: none;
+}
+form form:first-of-type .itemForm label{
+  display: inline-block;
+}
+form form:first-of-type .itemForm button{
+  margin-top: 24px;
+}
+[class*="ValueContainer"]{
+  /* width: 25ch; */
+}
 .vertical {
   display: flex;
   flex-direction: column;
@@ -14,6 +35,7 @@
 }
 .btnSubmit{
   margin-top: 24px;
+  margin-bottom: 8px;
 }
 
 .datepicker{

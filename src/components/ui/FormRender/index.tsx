@@ -1,8 +1,6 @@
+import { useNavigate } from 'react-router-dom'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
-import FormControl from 'react-bootstrap/FormControl'
-import FormGroup from 'react-bootstrap/FormGroup'
-import FormLabel from 'react-bootstrap/FormLabel'
-import Button from 'react-bootstrap/Button'
+import { FormControl, FormGroup, FormLabel, Button } from 'react-bootstrap'
 import DatePicker from 'react-datepicker'
 import { registerLocale, setDefaultLocale } from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
@@ -15,6 +13,7 @@ import pt from 'date-fns/locale/pt'
 import styles from './styles.module.css'
 import CustomerAutocomplete from 'components/Customer/CustomerAutocomplete'
 import ProductAutocomplete from 'components/Product/ProductAutocomplete'
+import React from 'react'
 
 type formOption = {
   label: string
@@ -37,8 +36,10 @@ type formItem = {
     | 'CustomerAutocomplete'
     | 'Datepicker'
     | 'ProductAutocomplete'
+    | 'array'
   value: string | boolean | number | {}
   valueType?: 'string' | 'number' | 'boolean'
+  SubForm?: React.ElementType
 }
 
 export type FormConfig = formItem[]
@@ -49,6 +50,7 @@ export type FormProps = {
   layout?: 'horizontal' | 'vertical'
   title?: string
   onSubmit: (values: ReturnValues) => void
+  btnType?: 'submit' | 'button'
 }
 
 export type ReturnValues = {
@@ -67,6 +69,7 @@ const FormRender = ({
   title,
   values,
   onSubmit,
+  btnType = 'submit',
 }: FormProps) => {
   const { i18n } = useTranslation()
 
@@ -101,19 +104,24 @@ const FormRender = ({
     return returnValues
   }
 
+  let navigate = useNavigate()
   const handleSubmit = (values: ReturnValues) => {
     const returnValues = normaliseValues(values)
     onSubmit(returnValues)
+    navigate(-1)
   }
+
+  console.clear()
 
   return (
     <>
       {title && <h3>{title}</h3>}
       <Formik
         initialValues={values || defaultValues}
-        onSubmit={(values, { setSubmitting }) => {
+        onSubmit={(values, { setSubmitting, resetForm }) => {
           handleSubmit(values)
           setSubmitting(false)
+          resetForm()
         }}
       >
         {({
@@ -123,6 +131,8 @@ const FormRender = ({
           setFieldValue,
           values,
           touched,
+          errors,
+          isValid,
         }) => (
           <Form onSubmit={handleSubmit} className={styles[layout]}>
             {config.map(
@@ -134,8 +144,9 @@ const FormRender = ({
                 required,
                 readOnly,
                 options,
+                SubForm,
               }) => (
-                <FormGroup key={name}>
+                <div key={name} className={styles.itemForm}>
                   <Field name={name}>
                     {({ field, form, meta }: any) => (
                       <FormGroup key={name}>
@@ -195,12 +206,23 @@ const FormRender = ({
                           </>
                         )}
                         {type === 'ProductAutocomplete' && (
-                          <ProductAutocomplete
-                            onChange={(customer: any) =>
-                              setFieldValue(name, customer)
-                            }
-                            value={field.value}
-                          />
+                          <>
+                            {!!values.product && (
+                              <ProductAutocomplete
+                                onChange={(product: any) =>
+                                  setFieldValue(name, product.id)
+                                }
+                                value={field.value}
+                              />
+                            )}
+                            {!values.product && (
+                              <ProductAutocomplete
+                                onChange={(product: any) =>
+                                  setFieldValue(name, product.id)
+                                }
+                              />
+                            )}
+                          </>
                         )}
                         {type === 'Datepicker' && (
                           <DatePicker
@@ -213,21 +235,49 @@ const FormRender = ({
                             dateFormat="P"
                           />
                         )}
+                        {type === 'array' && SubForm && (
+                          <>
+                            {values[name] &&
+                              values[name].map((item: any, index: number) => (
+                                <SubForm
+                                  key={index}
+                                  onSubmit={(data: any) => {
+                                    const newValues = values[name].map(
+                                      (prod: any) =>
+                                        prod.id === data.id ? data : prod
+                                    )
+                                    setFieldValue(name, newValues)
+                                  }}
+                                  values={item}
+                                />
+                              ))}
+                            <SubForm
+                              onSubmit={(data: any) => {
+                                setFieldValue(name, [...values[name], data])
+                              }}
+                            />
+                          </>
+                        )}
                       </FormGroup>
                     )}
                   </Field>
 
                   <ErrorMessage name={name} component="div" />
-                </FormGroup>
+                </div>
               )
             )}
-            <Button
-              type="submit"
-              disabled={isSubmitting}
-              className={styles.btnSubmit}
-            >
-              Submit
-            </Button>
+            <div className={styles.itemForm}>
+              <Button
+                type={btnType}
+                disabled={isSubmitting}
+                className={styles.btnSubmit}
+                onClick={() => {
+                  onSubmit(values)
+                }}
+              >
+                {btnType === 'submit' ? 'Submit' : 'Add'}
+              </Button>
+            </div>
           </Form>
         )}
       </Formik>
